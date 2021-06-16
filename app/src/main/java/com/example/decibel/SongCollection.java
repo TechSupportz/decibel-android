@@ -1,17 +1,23 @@
 package com.example.decibel;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class SongCollection {
 
-    private Song songs[] = new Song[25];
+    List<Song> songList = new ArrayList<Song>();
+
+    private Song songs[] = new Song[4];
 
     public SongCollection(){
         Song theWayYouLookTonight = new Song(
                 "S1001",
-                "The Way You Look Tonight",
-                "Michael Bublé",
+                "If I Can't Have You",
+                "Shawn Mendes",
                 "pop",
-                "https://p.scdn.co/mp3-preview/a5b8972e764025020625bbf9c1c2bbb06e394a60?cid=2afe87a64b0042dabf51f37318616965",
-                "https://cdns-images.dzcdn.net/images/cover/a5dd92ae1b53ad19f39e3036dd510541/500x500-000000-80-0-0.jpg",
+                "https://cdns-preview-3.dzcdn.net/stream/c-3394022de0f5e5604d469ad80c860636-8.mp3",
+                "https://cdns-images.dzcdn.net/images/cover/4798f68c0c5ea41110ac0fbdc9a8989f/500x500-000000-80-0-0.jpg",
                 4.66);
 
 
@@ -30,30 +36,37 @@ public class SongCollection {
                 "dreamy night",
                 "LilyPichu",
                 "lofi",
-                "https://p.scdn.co/mp3-preview/9956e838630df9a0dfdb3753ad38ef1fc7cee5e7?cid=2afe87a64b0042dabf51f37318616965",
+                "https://cdn.discordapp.com/attachments/854735014770901055/854735119931932702/Lilypichu_comfy_beats_-_dreamy_night.mp3",
                 "https://cdns-images.dzcdn.net/images/cover/6b2f8b3ff0e6cd136e685afa2940fcba/500x500-000000-80-0-0.jpg",
                 4.1 );
+
+        Song lostCause = new Song(
+                "S1003",
+                "Lost Cause",
+                "Billie Eilish",
+                "trip hop",
+                "https://cdns-preview-c.dzcdn.net/stream/c-ca6ca9fed6bff13203400750db2de54a-4.mp3",
+                "https://cdns-images.dzcdn.net/images/cover/bb2880548dd3bc71fb97def2eedec130/500x500-000000-80-0-0.jpg",
+                3.54 );
 
 
         songs[0] = theWayYouLookTonight;
         songs[1] = billieJean;
         songs[2] = dreamyNight;
+        songs[3] = lostCause;
+
+        songList.addAll(Arrays.asList(songs));
+
+    }
+
+    public List<Song> getSongList() {
+        return songList;
     }
 
     public Song getCurrentSong(int currentSongId){
         return songs[currentSongId];
     }
 
-    //Finds song which has the same id and returns its position the the songs array
-    public int searchSongById(String id){
-        for (int index=0; index < songs.length; index++){
-            Song tempSong = songs[index];
-            if(tempSong.getId().equals(id)){
-                return index;
-            }
-        }
-        return -1;
-    }
 
     public int getNextSong(int currentSongIndex) {
         if (currentSongIndex >= songs.length-1){
