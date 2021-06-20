@@ -11,12 +11,12 @@ public class SongCollection {
     private Song songs[] = new Song[4];
 
     public SongCollection(){
-        Song theWayYouLookTonight = new Song(
+        Song ifICantHaveYou = new Song(
                 "S1001",
                 "If I Can't Have You",
                 "Shawn Mendes",
                 "pop",
-                "https://cdns-preview-3.dzcdn.net/stream/c-3394022de0f5e5604d469ad80c860636-8.mp3",
+                "https://cdn.discordapp.com/attachments/854735014770901055/854976438457729024/y2mate.com_-_Shawn_Mendes_If_I_Cant_Have_You_Lyrics.mp3",
                 "https://cdns-images.dzcdn.net/images/cover/4798f68c0c5ea41110ac0fbdc9a8989f/500x500-000000-80-0-0.jpg",
                 4.66);
 
@@ -26,7 +26,7 @@ public class SongCollection {
                 "Billie Jean",
                 "Michael Jackson",
                 "pop",
-                "https://p.scdn.co/mp3-preview/14a1ddedf05a15ad0ac11ce28b40ea1a15fabd20?cid=2afe87a64b0042dabf51f37318616965",
+                "https://cdn.discordapp.com/attachments/854735014770901055/854976494819475496/y2mate.com_-_Michael_Jackson_Billie_Jean_Lyrics_1983.mp3",
                 "https://cdns-images.dzcdn.net/images/cover/ebeac32e9207c60877228ddc5bb37233/500x500-000000-80-0-0.jpg",
                 4.9);
 
@@ -36,7 +36,7 @@ public class SongCollection {
                 "dreamy night",
                 "LilyPichu",
                 "lofi",
-                "https://cdn.discordapp.com/attachments/854735014770901055/854735119931932702/Lilypichu_comfy_beats_-_dreamy_night.mp3",
+                "https://cdn.discordapp.com/attachments/854735014770901055/854976502290055178/Lilypichu_comfy_beats_-_dreamy_night.mp3",
                 "https://cdns-images.dzcdn.net/images/cover/6b2f8b3ff0e6cd136e685afa2940fcba/500x500-000000-80-0-0.jpg",
                 4.1 );
 
@@ -45,12 +45,12 @@ public class SongCollection {
                 "Lost Cause",
                 "Billie Eilish",
                 "trip hop",
-                "https://cdns-preview-c.dzcdn.net/stream/c-ca6ca9fed6bff13203400750db2de54a-4.mp3",
+                "https://cdn.discordapp.com/attachments/854735014770901055/854976498145558548/y2mate.com_-_Billie_Eilish_Lost_Cause_Lyrics.mp3",
                 "https://cdns-images.dzcdn.net/images/cover/bb2880548dd3bc71fb97def2eedec130/500x500-000000-80-0-0.jpg",
                 3.54 );
 
 
-        songs[0] = theWayYouLookTonight;
+        songs[0] = ifICantHaveYou;
         songs[1] = billieJean;
         songs[2] = dreamyNight;
         songs[3] = lostCause;

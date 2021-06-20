@@ -74,12 +74,12 @@ public class PlaySongActivity extends AppCompatActivity {
     public void playOrPauseMusic(View view) {
         if (player.isPlaying()) {
             player.pause();
-            //btnPlayPause.setImageResource(android.R.drawable.ic_media_play);
+            btnPlayPause.setImageResource(android.R.drawable.ic_media_play);
             handler.removeCallbacks(progressBar);
         }
         else {
             player.start();
-           // btnPlayPause.setImageResource(android.R.drawable.ic_media_pause);
+            btnPlayPause.setImageResource(android.R.drawable.ic_media_pause);
             handler.postDelayed(progressBar, 0);
         }
     }
@@ -109,7 +109,7 @@ public class PlaySongActivity extends AppCompatActivity {
             public void onCompletion(MediaPlayer mp) {
                 Toast.makeText(getBaseContext(), "The song has ended and the onCompleteListener is activated\n" +
                         "The button text is changed to 'PLAY'", Toast.LENGTH_LONG).show();
-                //btnPlayPause.setImageResource(android.R.drawable.ic_media_play);
+                btnPlayPause.setImageResource(android.R.drawable.ic_media_play);
                 handler.removeCallbacks(progressBar);
             }
         });
@@ -141,6 +141,7 @@ public class PlaySongActivity extends AppCompatActivity {
         playSong(fileLink);
 
         seekBar = findViewById(R.id.seekBar);
+        btnPlayPause = findViewById(R.id.btnPlayPause);
 
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {

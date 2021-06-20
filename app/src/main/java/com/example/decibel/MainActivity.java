@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.songList);
         recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
         mAdapter = new RecycleViewAdapter(songList, MainActivity.this);
