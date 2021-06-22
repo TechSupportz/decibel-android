@@ -62,7 +62,7 @@ public class PlaySongActivity extends AppCompatActivity {
             player.prepare();
             player.start();
             handler.removeCallbacks(progressBar);
-            handler.postDelayed(progressBar, 0); //activates runnable
+            handler.postDelayed(progressBar, 1000); //activates runnable
             gracefullyStopWhenMusicEnds();
             setTitle(title);
         }
