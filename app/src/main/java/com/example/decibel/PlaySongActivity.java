@@ -1,9 +1,11 @@
 package com.example.decibel;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.palette.graphics.Palette;
 
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +23,7 @@ import com.example.decibel.R;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.time.Instant;
 
 public class PlaySongActivity extends AppCompatActivity {
 
@@ -35,6 +38,14 @@ public class PlaySongActivity extends AppCompatActivity {
     SeekBar seekBar;
     ImageButton btnPlayPause;
     Handler handler = new Handler();
+
+    private Palette.Swatch vibrantSwatch;
+    private Palette.Swatch lightVibrantSwatch;
+    private Palette.Swatch darkVibrantSwatch;
+    private Palette.Swatch mutedSwatch;
+    private Palette.Swatch lightMutedSwatch;
+    private Palette.Swatch darkMutedSwatch;
+
 
     public void displaySongBasedOnIndex(int selectedIndex){
 
@@ -53,7 +64,29 @@ public class PlaySongActivity extends AppCompatActivity {
 
         ImageView iCoverArt = findViewById(R.id.imgCoverArt);
         Picasso.get().load(coverArt).into(iCoverArt);
+
+        Bitmap bitmap = ((BitmapDrawable) iCoverArt.getDrawable()).getBitmap();
+
+        Palette.from(bitmap).maximumColorCount(24).generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(@Nullable @org.jetbrains.annotations.Nullable Palette palette) {
+                vibrantSwatch = palette.getVibrantSwatch();
+                lightVibrantSwatch = palette.getLightVibrantSwatch();
+                darkVibrantSwatch = palette.getDarkVibrantSwatch();
+                mutedSwatch = palette.getMutedSwatch();
+                lightMutedSwatch = palette.getLightMutedSwatch();
+                darkMutedSwatch = palette.getDarkMutedSwatch();
+            }
+        });
+
+
+
+
+
+
     }
+
+
 
     public void playSong(String songUrl) {
         try {
@@ -128,8 +161,6 @@ public class PlaySongActivity extends AppCompatActivity {
         }
     };
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -160,7 +191,6 @@ public class PlaySongActivity extends AppCompatActivity {
                 player.seekTo(seekBar.getProgress());
             }
         });
-
     }
 
 
