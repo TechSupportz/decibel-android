@@ -8,7 +8,7 @@ public class SongCollection {
 
     List<Song> songList = new ArrayList<Song>();
 
-    private Song songs[] = new Song[4];
+    private Song songs[] = new Song[6];
 
     public SongCollection(){
         Song ifICantHaveYou = new Song(
@@ -49,11 +49,32 @@ public class SongCollection {
                 "https://cdns-images.dzcdn.net/images/cover/bb2880548dd3bc71fb97def2eedec130/500x500-000000-80-0-0.jpg",
                 3.54 );
 
+        Song hitMyLine = new Song(
+                "S1004",
+                "Hit My Line",
+                "Logic",
+                "hip-hop/rap",
+                "https://cdn.discordapp.com/attachments/854735014770901055/862196004735680522/Logic_-_Hit_My_Line_Official_Audio.mp3",
+                "https://i.scdn.co/image/ab67616d0000b273dd6e1338493de367e646a01a",
+                4.42);
+
+        Song sunshineAndButterflies = new Song(
+                "S1005",
+                "sunshine & butterflies",
+                "LilyPichu",
+                "lofi",
+                "https://cdn.discordapp.com/attachments/854735014770901055/862205698850816040/sunshine__butterflies_.mp3",
+                /*"https://i.scdn.co/image/ab67616d0000b273992f5072a606a81d1dfcb483"*/"https://static.wikia.nocookie.net/lilypichu/images/a/a0/Comfy_vibes.jpg/revision/latest?cb=20200602062925",
+                3.08);
+
+
 
         songs[0] = ifICantHaveYou;
         songs[1] = billieJean;
         songs[2] = dreamyNight;
         songs[3] = lostCause;
+        songs[4] = hitMyLine;
+        songs[5] = sunshineAndButterflies;
 
         songList.addAll(Arrays.asList(songs));
 

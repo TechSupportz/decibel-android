@@ -1,168 +1,365 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/playSongConstraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00FFFFFF"
-    tools:context="com.example.decibel.PlaySongActivity">
+    tools:context="com.example.decibel.PlaySongActivity"
+    >
 
 
     <ImageView
         android:id="@+id/background"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/background01" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="380dp"
-        android:layout_height="475dp"
+        android:layout_height="435dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         app:cardBackgroundColor="#80000000"
-        app:cardCornerRadius="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:cardCornerRadius="15dp" >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgCoverArt"
+            android:layout_width="335dp"
+            android:layout_height="335dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="67.5dp"
+            android:layout_marginBottom="6dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/home1" />
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
+        android:layout_width="380dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="275dp"
+        app:cardBackgroundColor="#000000"
+        app:cardCornerRadius="15dp">
+
+        <ImageButton
+            android:id="@+id/btnNext"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="75dp"
+            android:layout_marginTop="75dp"
+            android:layout_marginBottom="48dp"
+            android:backgroundTint="#00FFFFFF"
+            android:onClick="playNext"
+            android:scaleType="centerCrop"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            app:srcCompat="@drawable/next_icon" />
+
+        <ImageButton
+            android:id="@+id/btnPlayPause"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="75dp"
+            android:layout_marginBottom="48dp"
+            android:backgroundTint="#00FFFFFF"
+            android:onClick="playOrPauseMusic"
+            android:scaleType="centerCrop"
+            android:scaleX="2"
+            android:scaleY="2"
+            app:srcCompat="@drawable/pause_icon"
+            tools:layout_editor_absoluteX="158dp" />
+
+        <ImageButton
+            android:id="@+id/btnPrevious"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="75dp"
+            android:layout_marginBottom="48dp"
+            android:layout_marginEnd="75dp"
+            android:backgroundTint="#00FFFFFF"
+            android:onClick="playPrevious"
+            android:scaleType="centerCrop"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            app:srcCompat="@drawable/prev_icon" />
+
+        <ImageButton
+            android:id="@+id/btnShuffle"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="75dp"
+            android:layout_marginBottom="48dp"
+            android:layout_marginEnd="140dp"
+            android:backgroundTint="#00FFFFFF"
+            android:onClick="toggleShuffle"
+            android:scaleType="centerCrop"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            app:srcCompat="@drawable/shuffle_icon"
+            android:alpha="0.3"/>
+
+        <ImageButton
+            android:id="@+id/btnLoop"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="75dp"
+            android:layout_marginBottom="48dp"
+            android:layout_marginStart="140dp"
+            android:backgroundTint="#00FFFFFF"
+            android:onClick="toggleLoop"
+            android:scaleType="centerCrop"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            app:srcCompat="@drawable/loop_icon"
+            android:alpha="0.3"/>
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            style="@android:style/Widget.DeviceDefault.Light.SeekBar"
+            android:layout_width="273dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/seekbar_background"
+            android:indeterminate="false"
+            android:max="100"
+            android:padding="6dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:progress="0"
+            android:progressDrawable="@drawable/seekbar_progress"
+            android:thumb="@drawable/seekbar_thumb" />
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:backgroundTint="#00FFFFFF">
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgCoverArt"
-                android:layout_width="350dp"
-                android:layout_height="350dp"
-                android:layout_marginTop="100dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/home1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.491"
+            <TextView
+                android:id="@+id/songProgTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="32dp"
+                android:text="00:00"
+                android:fontFamily="@font/montserratregular"
+                android:textColor="#FFFFFF"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:cardBackgroundColor="#000000"
-                app:cardCornerRadius="15dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <TextView
+                android:id="@+id/songDurationTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="10dp"
+                android:text="05:00"
+                android:fontFamily="@font/montserratregular"
+                android:textColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <SeekBar
-                        android:id="@+id/seekBar"
-                        style="@android:style/Widget.DeviceDefault.Light.SeekBar"
-                        android:layout_width="372dp"
-                        android:layout_height="42dp"
-                        android:layout_centerInParent="false"
-                        android:layout_marginTop="27dp"
-                        android:background="@drawable/seekbar_background"
-                        android:indeterminate="false"
-                        android:max="100"
-                        android:padding="6dp"
-                        android:paddingStart="5dp"
-                        android:paddingEnd="5dp"
-                        android:progress="0"
-                        android:progressDrawable="@drawable/seekbar_progress"
-                        android:thumb="@drawable/seekbar_thumb"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageButton
-                        android:id="@+id/btnPlayPause"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="40dp"
-                        android:backgroundTint="#00FFFFFF"
-                        android:onClick="playOrPauseMusic"
-                        android:scaleType="centerCrop"
-                        android:scaleX="2"
-                        android:scaleY="2"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/btnNext"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/btnPrevious"
-                        app:srcCompat="@android:drawable/ic_media_pause" />
-
-                    <ImageButton
-                        android:id="@+id/btnPrevious"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="40dp"
-                        android:backgroundTint="#00FFFFFF"
-                        android:onClick="playPrevious"
-                        android:scaleType="centerCrop"
-                        android:scaleX="2"
-                        android:scaleY="2"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/btnPlayPause"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:srcCompat="@android:drawable/ic_media_previous" />
-
-                    <ImageButton
-                        android:id="@+id/btnNext"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="40dp"
-                        android:backgroundTint="#00FFFFFF"
-                        android:onClick="playNext"
-                        android:scaleType="centerCrop"
-                        android:scaleX="2"
-                        android:scaleY="2"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/btnPlayPause"
-                        app:srcCompat="@android:drawable/ic_media_next" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/txtSongTitle"
-        android:layout_width="408dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="40dp"
-        android:text="Song Title"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
-    <TextView
-        android:id="@+id/txtArtist"
-        android:layout_width="418dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="12dp"
-        android:text="Artist"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSongTitle" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/songCard"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="42dp"
+                android:layout_marginTop="510dp"
+                android:alpha="0.75"
+                app:cardBackgroundColor="@color/black"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/songIcon"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/music_note_icon">
+
+                </ImageView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/songLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/montserratsemibold"
+                android:text="Song"
+                android:textAlignment="viewStart"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/txtSongTitle"
+                app:layout_constraintStart_toEndOf="@+id/songCard"
+                app:layout_constraintTop_toTopOf="@+id/songCard" />
+
+
+            <TextView
+                android:id="@+id/txtSongTitle"
+                android:layout_width="189dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="32dp"
+                android:fontFamily="@font/montserratregular"
+                android:text="Song Title"
+                android:textAlignment="viewStart"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/songCard"
+                app:layout_constraintStart_toEndOf="@+id/songCard" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/artistCard"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="42dp"
+                android:layout_marginTop="610dp"
+                android:alpha="0.75"
+                app:cardBackgroundColor="@color/black"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/artistIcon"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/person_icon">
+
+                </ImageView>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/artistLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/montserratsemibold"
+                android:text="Artist"
+                android:textAlignment="viewStart"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toTopOf="@+id/txtArtist"
+                app:layout_constraintStart_toEndOf="@+id/artistCard"
+                app:layout_constraintTop_toTopOf="@+id/artistCard" />
+
+            <TextView
+                android:id="@+id/txtArtist"
+                android:layout_width="191dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="32dp"
+                android:fontFamily="@font/montserratregular"
+                android:text="Artist Name"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/artistCard"
+                app:layout_constraintStart_toEndOf="@+id/artistCard" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/albumCard"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="42dp"
+                android:layout_marginTop="710dp"
+                android:alpha="0.75"
+                app:cardBackgroundColor="@color/black"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/albumIcon"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/album_icon">
+
+                </ImageView>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/albumLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/montserratsemibold"
+                android:text="Album"
+                android:textAlignment="viewStart"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toTopOf="@+id/txtArtist"
+                app:layout_constraintStart_toEndOf="@+id/albumCard"
+                app:layout_constraintTop_toTopOf="@+id/albumCard" />
+
+            <TextView
+                android:id="@+id/txtAlbum"
+                android:layout_width="191dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="32dp"
+                android:fontFamily="@font/montserratregular"
+                android:text="Album Name"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/albumCard"
+                app:layout_constraintStart_toEndOf="@+id/albumCard" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</RelativeLayout>

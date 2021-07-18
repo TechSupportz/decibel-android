@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.palette.graphics.Palette;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -16,6 +18,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -40,21 +43,59 @@ public class PlaySongActivity extends AppCompatActivity {
 
     private MediaPlayer player = new MediaPlayer();
     private SongCollection songCollection = new SongCollection();
-    private ConstraintLayout playSongConstraint;
+    private Palette.Swatch dominantSwatch;
+
     RotateAnimation rotateAnimation;
     SeekBar seekBar;
     ImageButton btnPlayPause;
     ImageView background;
-    Bitmap bitmapImage;
+    TextView songProgTxt;
+    TextView songDurationTxt;
     Handler handler = new Handler();
 
-    private Palette.Swatch vibrantSwatch;
-    private Palette.Swatch lightVibrantSwatch;
-    private Palette.Swatch darkVibrantSwatch;
-    private Palette.Swatch mutedSwatch;
-    private Palette.Swatch lightMutedSwatch;
-    private Palette.Swatch darkMutedSwatch;
-    private Palette.Swatch dominantSwatch;
+    ImageButton btnShuffle;
+    Boolean shuffleFlag = false;
+
+    ImageButton btnLoop;
+    Boolean loopFlag = false;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_play_song);
+        Bundle songData = this.getIntent().getExtras();
+        currentIndex = songData.getInt("index");
+        Log.d("temasek", "Retrieved position is:" + currentIndex);
+        displaySongBasedOnIndex(currentIndex);
+        playSong(fileLink);
+
+        seekBar = findViewById(R.id.seekBar);
+        btnPlayPause = findViewById(R.id.btnPlayPause);
+        btnShuffle = findViewById(R.id.btnShuffle);
+        btnLoop = findViewById(R.id.btnLoop);
+        background = findViewById(R.id.background);
+        songProgTxt = findViewById(R.id.songProgTxt);
+        songDurationTxt = findViewById(R.id.songDurationTxt);
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                player.seekTo(seekBar.getProgress());
+            }
+        });
+
+    }
 
 
     public void displaySongBasedOnIndex(int selectedIndex) {
@@ -75,9 +116,8 @@ public class PlaySongActivity extends AppCompatActivity {
         ImageView iCoverArt = findViewById(R.id.imgCoverArt);
         Picasso.get().load(coverArt).into(iCoverArt);
 
-        backgroudTint();
+        backgroundTint();
     }
-
 
     public void playSong(String songUrl) {
         try {
@@ -86,7 +126,7 @@ public class PlaySongActivity extends AppCompatActivity {
             player.prepare();
             player.start();
             handler.removeCallbacks(progressBar);
-            handler.postDelayed(progressBar, 10); //activates runnable
+            handler.postDelayed(progressBar, 0); //activates runnable
             gracefullyStopWhenMusicEnds();
             setTitle(title);
             spinCoverArt();
@@ -96,32 +136,104 @@ public class PlaySongActivity extends AppCompatActivity {
         }
     }
 
+    private void gracefullyStopWhenMusicEnds(){
+        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                songProgTxt.setText(createTimeLabel(player.getDuration()));
+                handler.removeCallbacks(progressBar);
+
+                if (!loopFlag){
+                    playNext(null);
+                }
+                else {
+                    playOrPauseMusic(null);
+                }
+            }
+        });
+    }
+
     public void playOrPauseMusic(View view) {
         if (player.isPlaying()) {
             player.pause();
-            btnPlayPause.setImageResource(android.R.drawable.ic_media_play);
+            btnPlayPause.setImageResource(R.drawable.play_icon);
             handler.removeCallbacks(progressBar);
 
 
         } else {
             player.start();
-            btnPlayPause.setImageResource(android.R.drawable.ic_media_pause);
+            btnPlayPause.setImageResource(R.drawable.pause_icon);
             handler.postDelayed(progressBar, 0);
             spinCoverArt();
         }
     }
 
+    public void playNext(View view) {
+        currentIndex = songCollection.getNextSong(currentIndex);
+        Log.d("temasek", "After playNext, the index is now :" + currentIndex);
+        displaySongBasedOnIndex(currentIndex);
+        playSong(fileLink);
+        backgroundTint();
+    }
+
+    public void playPrevious(View view) {
+        currentIndex = songCollection.getPrevSong(currentIndex);
+        Log.d("temasek", "After playPrevious, the index is now :" + currentIndex);
+        displaySongBasedOnIndex(currentIndex);
+        playSong(fileLink);
+        backgroundTint();
+    }
+
+    public void toggleShuffle(View view) {
+        if (btnShuffle.getAlpha() == 1f) {
+            btnShuffle.animate().alpha(0.3f).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
+        }
+        else{
+            btnShuffle.animate().alpha(1f).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
+        }
+    }
+
+    public void toggleLoop(View view) {
+        if (loopFlag) {
+            btnLoop.animate().alpha(0.3f).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
+        }
+        else{
+            btnLoop.animate().alpha(1f).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
+        }
+        loopFlag = !loopFlag; //Set loopFlag to the opposite state of what it was before the loop button was pressed
+    }
+
+    public String createTimeLabel (int duration){
+        String timerLabel= "";
+        int min = duration/1000/60;
+        int sec = duration/1000%60;
+
+        timerLabel = min + ":";
+
+        if (sec <10){
+            timerLabel += "0";
+            timerLabel += sec;
+        }
+        else{
+            timerLabel += sec;
+        }
+
+        return timerLabel;
+
+    }
+
+
 
     public void spinCoverArt() {
-            rotateAnimation = new RotateAnimation(0, 360f,
-                    Animation.RELATIVE_TO_SELF, 0.5f,
-                    Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation = new RotateAnimation(0, 360f,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
 
-            rotateAnimation.setInterpolator(new LinearInterpolator());
-            rotateAnimation.setDuration(3000);
-            rotateAnimation.setRepeatCount(Animation.INFINITE);
+        rotateAnimation.setInterpolator(new LinearInterpolator());
+        rotateAnimation.setDuration(3000);
+        rotateAnimation.setRepeatCount(Animation.INFINITE);
 
-            findViewById(R.id.imgCoverArt).startAnimation(rotateAnimation);
+        findViewById(R.id.imgCoverArt).startAnimation(rotateAnimation);
 
         rotateAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -140,7 +252,6 @@ public class PlaySongActivity extends AppCompatActivity {
             }
         });
     }
-
     public void isSongPlaying(){
         if(player.isPlaying()){
             Log.d("spin", "Player is playing");
@@ -151,14 +262,8 @@ public class PlaySongActivity extends AppCompatActivity {
 
     }
 
-    public void backgroudTint() {
+    public void backgroundTint() {
 
-        vibrantSwatch = null;
-        lightVibrantSwatch = null;
-        darkVibrantSwatch = null;
-        mutedSwatch = null;
-        lightMutedSwatch = null;
-        darkMutedSwatch = null;
         dominantSwatch = null;
 
         Picasso.get().load(this.coverArt).into(new Target() {
@@ -168,14 +273,9 @@ public class PlaySongActivity extends AppCompatActivity {
                 Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
                     @Override
                     public void onGenerated(@Nullable @org.jetbrains.annotations.Nullable Palette palette) {
-                        vibrantSwatch = palette.getVibrantSwatch();
-                        lightVibrantSwatch = palette.getLightVibrantSwatch();
-                        darkVibrantSwatch = palette.getDarkVibrantSwatch();
-                        mutedSwatch = palette.getMutedSwatch();
-                        lightMutedSwatch = palette.getLightMutedSwatch();
-                        darkMutedSwatch = palette.getDarkMutedSwatch();
+                        assert palette != null;
                         dominantSwatch = palette.getDominantSwatch();
-                        Log.d("Colour", "the swatch is " + vibrantSwatch);
+                        Log.d("Colour", "the swatch is " + dominantSwatch);
 
                         if (dominantSwatch != null){
                             Log.d("Colour", "the dominant colour is " + dominantSwatch.getRgb());
@@ -198,84 +298,25 @@ public class PlaySongActivity extends AppCompatActivity {
     }
 
 
-    public void playNext(View view) {
-        currentIndex = songCollection.getNextSong(currentIndex);
-        Toast.makeText(this, "After clicking playNext, \nthe current index of this song\n" +
-                "in the SongCollection array is now : " + currentIndex, Toast.LENGTH_LONG).show();
-        Log.d("temasek", "After playNext, the index is now :" + currentIndex);
-        displaySongBasedOnIndex(currentIndex);
-        playSong(fileLink);
-        backgroudTint();
-    }
-
-    public void playPrevious(View view) {
-        currentIndex = songCollection.getPrevSong(currentIndex);
-        Toast.makeText(this, "After clicking playPrevious, \nthe current index of this song\n" +
-                "in the SongCollection array is now : " + currentIndex, Toast.LENGTH_LONG).show();
-        Log.d("temasek", "After playPrevious, the index is now :" + currentIndex);
-        displaySongBasedOnIndex(currentIndex);
-        playSong(fileLink);
-        backgroudTint();
-    }
-
-
-    private void gracefullyStopWhenMusicEnds(){
-        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                Toast.makeText(getBaseContext(), "The song has ended and the onCompleteListener is activated\n" +
-                        "The button text is changed to 'PLAY'", Toast.LENGTH_LONG).show();
-                btnPlayPause.setImageResource(android.R.drawable.ic_media_play);
-                handler.removeCallbacks(progressBar);
-            }
-        });
-    }
-
     Runnable progressBar = new Runnable() {
         int count = 0;
         @Override
         public void run() {
             Log.d("temasek", "running" + count++);
             if (player != null && player.isPlaying()) {
-                seekBar.setMax(player.getDuration());
-                seekBar.setProgress(player.getCurrentPosition());
+                int duration = player.getDuration();
+                int currentPos = player.getCurrentPosition();
+                seekBar.setMax(duration);
+                seekBar.setProgress(currentPos);
+                String timerLabel = createTimeLabel(duration);
+                songDurationTxt.setText(timerLabel);
+                songProgTxt.setText(createTimeLabel(currentPos));
                 handler.postDelayed(this, 1000); //calls runnable repeatedly every 1000ms (1s)
             }
         }
     };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play_song);
-        Bundle songData = this.getIntent().getExtras();
-        currentIndex = songData.getInt("index");
-        Log.d("temasek", "Retrieved position is:" + currentIndex);
-        displaySongBasedOnIndex(currentIndex);
-        playSong(fileLink);
 
-        seekBar = findViewById(R.id.seekBar);
-        btnPlayPause = findViewById(R.id.btnPlayPause);
-        background = findViewById(R.id.background);
-
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                player.seekTo(seekBar.getProgress());
-            }
-        });
-
-    }
 
 
     public void onBackPressed() {
