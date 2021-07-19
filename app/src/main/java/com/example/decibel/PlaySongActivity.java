@@ -32,6 +32,12 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class PlaySongActivity extends AppCompatActivity {
 
@@ -42,9 +48,9 @@ public class PlaySongActivity extends AppCompatActivity {
     private int currentIndex = -1;
 
     private MediaPlayer player = new MediaPlayer();
-    private SongCollection songCollection = new SongCollection();
+    SongCollection songCollection = new SongCollection();
+    List<Song> shuffleList = songCollection.getSongList();
     private Palette.Swatch dominantSwatch;
-
     RotateAnimation rotateAnimation;
     SeekBar seekBar;
     ImageButton btnPlayPause;
@@ -169,7 +175,21 @@ public class PlaySongActivity extends AppCompatActivity {
     }
 
     public void playNext(View view) {
-        currentIndex = songCollection.getNextSong(currentIndex);
+        if (shuffleFlag){
+            int max = (songCollection.getSongList()).size() - 1;
+            int min = 0;
+            int random = (new Random()).nextInt((max - min) + 1) + min;
+
+            if (random == currentIndex){
+                currentIndex = random+1;
+            }
+            else{
+                currentIndex = random;
+            }
+        }
+        else {
+            currentIndex = songCollection.getNextSong(currentIndex);
+        }
         Log.d("temasek", "After playNext, the index is now :" + currentIndex);
         displaySongBasedOnIndex(currentIndex);
         playSong(fileLink);
@@ -185,12 +205,14 @@ public class PlaySongActivity extends AppCompatActivity {
     }
 
     public void toggleShuffle(View view) {
-        if (btnShuffle.getAlpha() == 1f) {
+        if (shuffleFlag) {
             btnShuffle.animate().alpha(0.3f).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
         }
         else{
             btnShuffle.animate().alpha(1f).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
+
         }
+        shuffleFlag = !shuffleFlag;
     }
 
     public void toggleLoop(View view) {
@@ -327,3 +349,4 @@ public class PlaySongActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 }
+

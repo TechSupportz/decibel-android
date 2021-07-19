@@ -8,8 +8,6 @@ public class SongCollection {
 
     List<Song> songList = new ArrayList<Song>();
 
-    private Song songs[] = new Song[6];
-
     public SongCollection(){
         Song ifICantHaveYou = new Song(
                 "S1001",
@@ -64,19 +62,18 @@ public class SongCollection {
                 "LilyPichu",
                 "lofi",
                 "https://cdn.discordapp.com/attachments/854735014770901055/862205698850816040/sunshine__butterflies_.mp3",
-                /*"https://i.scdn.co/image/ab67616d0000b273992f5072a606a81d1dfcb483"*/"https://static.wikia.nocookie.net/lilypichu/images/a/a0/Comfy_vibes.jpg/revision/latest?cb=20200602062925",
+                "https://i.scdn.co/image/ab67616d0000b273992f5072a606a81d1dfcb483",
                 3.08);
 
 
 
-        songs[0] = ifICantHaveYou;
-        songs[1] = billieJean;
-        songs[2] = dreamyNight;
-        songs[3] = lostCause;
-        songs[4] = hitMyLine;
-        songs[5] = sunshineAndButterflies;
+        songList.add(ifICantHaveYou);
+        songList.add(billieJean);
+        songList.add(dreamyNight);
+        songList.add(lostCause);
+        songList.add(hitMyLine);
+        songList.add(sunshineAndButterflies);
 
-        songList.addAll(Arrays.asList(songs));
 
     }
 
@@ -85,13 +82,13 @@ public class SongCollection {
     }
 
     public Song getCurrentSong(int currentSongId){
-        return songs[currentSongId];
+        return songList.get(currentSongId);
     }
 
-
     public int getNextSong(int currentSongIndex) {
-        if (currentSongIndex >= songs.length-1){
-            return currentSongIndex;
+
+        if (currentSongIndex >= songList.size()-1){
+            return 0;
         }
         else{
             return currentSongIndex + 1;
