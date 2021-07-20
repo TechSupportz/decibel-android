@@ -10,7 +10,6 @@
     tools:context="com.example.decibel.PlaySongActivity"
     >
 
-
     <ImageView
         android:id="@+id/background"
         android:layout_width="match_parent"
@@ -142,6 +141,7 @@
             android:progress="0"
             android:progressDrawable="@drawable/seekbar_progress"
             android:thumb="@drawable/seekbar_thumb" />
+
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
