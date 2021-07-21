@@ -16,6 +16,9 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private  RecyclerView recyclerView2;
+    private RecyclerView.Adapter mAdapter2;
+    private RecyclerView.LayoutManager layoutManager2;
 
     SongCollection songCollection = new SongCollection();
     List<Song> songList = songCollection.getSongList();
@@ -39,6 +42,17 @@ public class HomeFragment extends Fragment {
 
         mAdapter = new RecycleViewAdapter(songList, v.getContext());
         recyclerView.setAdapter(mAdapter);
+
+        recyclerView2 = v.findViewById(R.id.playlistList);
+        recyclerView2.setHasFixedSize(true);
+
+        layoutManager2 = new LinearLayoutManager(v.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerView2.setLayoutManager(layoutManager2);
+
+        mAdapter2 = new RecycleViewAdapter2(songList, v.getContext());
+        recyclerView2.setAdapter(mAdapter2);
+
+
 
         return v;
     }
