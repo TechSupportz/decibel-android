@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/playSongConstraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00FFFFFF"
     tools:context="com.example.decibel.PlaySongActivity">
 
     <ImageView
-        android:id="@+id/background"
+        android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/background01" />
+        app:srcCompat="@drawable/background0" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="@dimen/_280sdp"
         android:layout_height="@dimen/_300sdp"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_30sdp"
         app:cardBackgroundColor="#80000000"
         app:cardCornerRadius="15dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -344,6 +344,56 @@
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@+id/albumLabel"
         app:layout_constraintTop_toBottomOf="@+id/albumLabel" />
+
+    <ImageView
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:alpha="0.8"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/ic_bottom_bar"
+        tools:layout_editor_absoluteY="736dp" />
+
+    <ImageView
+        android:id="@+id/homeBtn"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_marginStart="32dp"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="goHome"
+        app:layout_constraintBottom_toBottomOf="@id/bottomBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bottomBar"
+        app:srcCompat="@drawable/home_icon" />
+
+    <ImageView
+        android:id="@+id/likeBtn"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_marginEnd="92dp"
+        app:layout_constraintBottom_toBottomOf="@id/bottomBar"
+        app:layout_constraintEnd_toEndOf="@+id/bottomBar"
+        app:layout_constraintTop_toTopOf="@id/bottomBar"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="addToLiked"
+        app:srcCompat="@drawable/like_icon" />
+
+    <ImageView
+        android:id="@+id/addToPlaylistBtn"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toBottomOf="@id/bottomBar"
+        app:layout_constraintEnd_toEndOf="@+id/bottomBar"
+        app:layout_constraintTop_toTopOf="@id/bottomBar"
+        android:backgroundTint="#00FFFFFF"
+        android:onClick="addToPlaylist"
+        app:srcCompat="@drawable/playlist_add_icon" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

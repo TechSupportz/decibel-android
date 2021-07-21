@@ -7,6 +7,7 @@ import androidx.palette.graphics.Palette;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -84,7 +85,7 @@ public class PlaySongActivity extends AppCompatActivity {
         btnPlayPause = findViewById(R.id.btnPlayPause);
         btnShuffle = findViewById(R.id.btnShuffle);
         btnLoop = findViewById(R.id.btnLoop);
-        background = findViewById(R.id.background);
+        background = findViewById(R.id.backgroundImage);
         songProgTxt = findViewById(R.id.songProgTxt);
         songDurationTxt = findViewById(R.id.songDurationTxt);
 
@@ -227,6 +228,11 @@ public class PlaySongActivity extends AppCompatActivity {
             btnLoop.animate().alpha(1f).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
         }
         loopFlag = !loopFlag; //Set loopFlag to the opposite state of what it was before the loop button was pressed
+    }
+
+    public void goHome(View view) {
+        Intent goHome = new Intent(this, MainActivity.class);
+        this.startActivity(goHome);
     }
 
     public String createTimeLabel (int duration){
