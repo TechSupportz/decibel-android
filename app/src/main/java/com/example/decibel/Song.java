@@ -7,16 +7,14 @@ public class Song {
     private String artist;
     private String findLink;
     private String coverArt;
-    private double songLength;
 
 
-    public Song(String id, String title, String artist, String genre, String findLink, String coverArt, double songLength){
+    public Song(String id, String title, String artist, String genre, String findLink, String coverArt){
 
         this.id = id;
         this.title = title;
         this.artist = artist;
         this.findLink = findLink;
-        this.songLength = songLength;
         this.coverArt = coverArt;
     }
 
@@ -24,7 +22,6 @@ public class Song {
     public void setTitle(String title){this.title=title;}
     public void setArtist(String artist){this.artist=artist;}
     public void setFindLink(String findLink){this.findLink=findLink;}
-    public void setSongLength(double songLength){this.songLength=songLength;}
     public void setCoverImage(String coverImage){this.coverArt=coverImage;}
 
 
@@ -48,7 +45,4 @@ public class Song {
         return coverArt;
     }
 
-    public double getSongLength() {
-        return songLength;
-    }
 }

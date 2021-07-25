@@ -2,18 +2,13 @@ package com.example.decibel;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.palette.graphics.Palette;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.content.res.ColorStateList;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,36 +16,41 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
+import android.view.animation.BounceInterpolator;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class PlaySongActivity extends AppCompatActivity {
 
-    private String title = "";
-    private String artist = "";
-    private String fileLink = "";
+    private String id;
+    private String title;
+    private String artist;
+    private String fileLink;
     private String coverArt;
     private int currentIndex = -1;
 
     private MediaPlayer player = new MediaPlayer();
     SongCollection songCollection = new SongCollection();
-    List<Song> shuffleList = songCollection.getSongList();
+    PlaylistCollection playlistCollection = new PlaylistCollection();
     private Palette.Swatch dominantSwatch;
     RotateAnimation rotateAnimation;
     SeekBar seekBar;
@@ -66,28 +66,30 @@ public class PlaySongActivity extends AppCompatActivity {
     ImageButton btnLoop;
     Boolean loopFlag = false;
 
+    ImageView btnLike;
+    Boolean likeFlag = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_song);
-        Bundle songData = this.getIntent().getExtras();
-        currentIndex = songData.getInt("index");
-        Log.d("temasek", "Retrieved position is:" + currentIndex);
-        displaySongBasedOnIndex(currentIndex);
-        playSong(fileLink);
-
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-        decorView.setSystemUiVisibility(uiOptions);
 
         seekBar = findViewById(R.id.seekBar);
         btnPlayPause = findViewById(R.id.btnPlayPause);
         btnShuffle = findViewById(R.id.btnShuffle);
         btnLoop = findViewById(R.id.btnLoop);
+        btnLike = findViewById(R.id.likedBtn);
         background = findViewById(R.id.backgroundImage);
         songProgTxt = findViewById(R.id.songProgTxt);
         songDurationTxt = findViewById(R.id.songDurationTxt);
+
+        Bundle songData = this.getIntent().getExtras();
+        currentIndex = songData.getInt("index");
+        Log.d("temasek", "Retrieved position is:" + currentIndex);
+        displaySongBasedOnIndex(currentIndex);
+        player.reset();
+        playSong(fileLink);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -113,6 +115,7 @@ public class PlaySongActivity extends AppCompatActivity {
 
         Song song = songCollection.getCurrentSong(currentIndex);
 
+        this.id = song.getId();
         this.title = song.getTitle();
         this.artist = song.getArtist();
         this.fileLink = song.getFindLink();
@@ -127,6 +130,7 @@ public class PlaySongActivity extends AppCompatActivity {
         ImageView iCoverArt = findViewById(R.id.imgCoverArt);
         Picasso.get().load(coverArt).into(iCoverArt);
 
+        checkLike();
         backgroundTint();
     }
 
@@ -211,10 +215,10 @@ public class PlaySongActivity extends AppCompatActivity {
 
     public void toggleShuffle(View view) {
         if (shuffleFlag) {
-            btnShuffle.animate().alpha(0.3f).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
+            btnShuffle.animate().alpha(0.3f).setDuration(150).setInterpolator(new AccelerateInterpolator()).start();
         }
         else{
-            btnShuffle.animate().alpha(1f).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
+            btnShuffle.animate().alpha(1f).setDuration(150).setInterpolator(new AccelerateInterpolator()).start();
 
         }
         shuffleFlag = !shuffleFlag;
@@ -222,18 +226,57 @@ public class PlaySongActivity extends AppCompatActivity {
 
     public void toggleLoop(View view) {
         if (loopFlag) {
-            btnLoop.animate().alpha(0.3f).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
+            btnLoop.animate().alpha(0.3f).setDuration(150).setInterpolator(new AccelerateInterpolator()).start();
         }
         else{
-            btnLoop.animate().alpha(1f).setDuration(300).setInterpolator(new AccelerateInterpolator()).start();
+            btnLoop.animate().alpha(1f).setDuration(150).setInterpolator(new AccelerateInterpolator()).start();
         }
         loopFlag = !loopFlag; //Set loopFlag to the opposite state of what it was before the loop button was pressed
     }
 
-    public void goHome(View view) {
-        Intent goHome = new Intent(this, MainActivity.class);
-        this.startActivity(goHome);
+    public void likeToggle(View view) {
+        if (likeFlag==false) {
+            btnLike.animate().alpha(1f).setDuration(150).start();
+            playlistCollection.addToLikedList(id);
+            saveData(PlaylistCollection.likedList);
+        }
+        else{
+            btnLike.animate().alpha(0f).setDuration(150).start();
+            playlistCollection.removeFrmLikedList(id);
+            saveData(PlaylistCollection.likedList);
+        }
+        Log.d("Liked", " " + PlaylistCollection.likedList.size());
+        likeFlag = !likeFlag;
     }
+
+    public void checkLike(){
+        if (PlaylistCollection.likedList.contains(songCollection.findSongById(id))){
+            btnLike.animate().alpha(1f).setDuration(0).start();
+            likeFlag = true;
+        }
+        else{
+            btnLike.animate().alpha(0f).setDuration(0).start();
+            likeFlag = false;
+        }
+    }
+
+    public void saveData(List<Song> saveList){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared pref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(saveList);
+        editor.putString("playlist", json);
+    }
+
+    public void loadData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared pref", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("playlist", null);
+        Type type = new TypeToken<ArrayList<Playlist>>() {}.getType();
+        PlaylistCollection.likedList = gson.fromJson(json, type);
+    }
+
+
 
     public String createTimeLabel (int duration){
         String timerLabel= "";
@@ -284,6 +327,7 @@ public class PlaySongActivity extends AppCompatActivity {
             }
         });
     }
+
     public void isSongPlaying(){
         if(player.isPlaying()){
             Log.d("spin", "Player is playing");
@@ -291,7 +335,6 @@ public class PlaySongActivity extends AppCompatActivity {
         else{
             findViewById(R.id.imgCoverArt).clearAnimation();
         }
-
     }
 
     public void backgroundTint() {
@@ -349,14 +392,19 @@ public class PlaySongActivity extends AppCompatActivity {
     };
 
 
-
+    public void goHome(View view) {
+        onBackPressed();
+    }
 
     public void onBackPressed() {
         if (player.isPlaying()) {
             player.release();
+            rotateAnimation.cancel();
             handler.removeCallbacks(progressBar);
+
         }
-        super.onBackPressed();
+        Intent goHome = new Intent(this, MainActivity.class);
+        this.startActivity(goHome);
     }
 }
 

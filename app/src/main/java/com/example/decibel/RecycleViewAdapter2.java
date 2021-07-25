@@ -19,30 +19,30 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter2.MyViewHolder> {
+public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter2.MyViewHolder2> {
 
-    List<Song> songList;
+    List<Song> likedList;
     Context context;
 
-    public RecycleViewAdapter2(List<Song> songList, Context context) {
-        this.songList = songList;
+    public RecycleViewAdapter2(List<Song> likedList, Context context) {
+        this.likedList = likedList;
         this.context = context;
     }
 
     @NonNull
     @NotNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public MyViewHolder2 onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.one_song,parent,false);
-        return new MyViewHolder(view);
+        return new MyViewHolder2(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull RecycleViewAdapter2.MyViewHolder holder, int position) {
-        holder.songName.setText(songList.get(position).getId());
-        holder.artistName.setText(songList.get(position).getArtist());
-        Picasso.get().load(songList.get(position).getCoverArt()).into(holder.coverArt);
+    public void onBindViewHolder(@NonNull @NotNull RecycleViewAdapter2.MyViewHolder2 holder, int position) {
+        holder.songName.setText(likedList.get(position).getId());
+        holder.artistName.setText(likedList.get(position).getArtist());
+        Picasso.get().load(likedList.get(position).getCoverArt()).into(holder.coverArt);
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,16 +57,16 @@ public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter
 
     @Override
     public int getItemCount() {
-        return songList.size();
+        return likedList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder2 extends RecyclerView.ViewHolder {
         ImageView coverArt;
         TextView songName;
         TextView artistName;
         ConstraintLayout parentLayout;
 
-        public MyViewHolder(@NonNull @NotNull View itemView) {
+        public MyViewHolder2(@NonNull @NotNull View itemView) {
             super(itemView);
             coverArt = itemView.findViewById(R.id.coverArt);
             songName = itemView.findViewById(R.id.songName);
@@ -74,4 +74,5 @@ public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter
             parentLayout = itemView.findViewById(R.id.oneSongLayout);
         }
     }
+
 }
