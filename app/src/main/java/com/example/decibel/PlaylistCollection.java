@@ -1,13 +1,8 @@
 package com.example.decibel;
 
 
-import android.content.SharedPreferences;
-import android.widget.Toast;
+import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +30,19 @@ public class PlaylistCollection {
     public void addToLikedList(String id){
         Song tempSong = songCollection.findSongById(id);
         likedList.add(tempSong);
+        for (int i = 0; i < likedList.size(); i++){
+            Log.d("Liked", "Liked list contains" + likedList.get(i).getId());
+        }
+    }
+
+    public boolean isPresent(String id) {
+        Song tempSong = songCollection.findSongById(id);
+        for (int o = 0; o < likedList.size(); o++){
+            if (tempSong.getId().equals((likedList.get(o).getId()))){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void removeFrmLikedList(String id){

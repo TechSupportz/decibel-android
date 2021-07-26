@@ -21,6 +21,7 @@ import java.util.List;
 
 public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter2.MyViewHolder2> {
 
+    SongCollection songCollection = new SongCollection();
     List<Song> likedList;
     Context context;
 

@@ -10,7 +10,7 @@ public class SongCollection {
 
     public SongCollection() {
         Song ifICantHaveYou = new Song(
-                "S1001",
+                "S1000",
                 "If I Can't Have You",
                 "Shawn Mendes",
                 "pop",
@@ -19,7 +19,7 @@ public class SongCollection {
 
 
         Song billieJean = new Song(
-                "S1002",
+                "S1001",
                 "Billie Jean",
                 "Michael Jackson",
                 "pop",
@@ -28,7 +28,7 @@ public class SongCollection {
 
 
         Song dreamyNight = new Song(
-                "S1003",
+                "S1002",
                 "dreamy night",
                 "LilyPichu",
                 "lofi",
@@ -94,6 +94,16 @@ public class SongCollection {
             }
         }
         return null;
+    }
+
+    public int searchSongById(String id) {
+        for (int index = 0; index < songList.size(); index++) {
+            Song tempSong = songList.get(index);
+            if (tempSong.getId().equals(id)) {
+                return index;
+            }
+        }
+        return -1;
     }
 
     public List<Song> getSongList() {

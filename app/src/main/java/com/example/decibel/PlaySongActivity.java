@@ -250,7 +250,7 @@ public class PlaySongActivity extends AppCompatActivity {
     }
 
     public void checkLike(){
-        if (PlaylistCollection.likedList.contains(songCollection.findSongById(id))){
+        if (playlistCollection.isPresent(id)){
             btnLike.animate().alpha(1f).setDuration(0).start();
             likeFlag = true;
         }
