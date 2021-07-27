@@ -14,6 +14,8 @@ public class PlaylistCollection {
     List<Playlist> presetPlaylist  = new ArrayList<>();
     List<Playlist> userPlaylist = new ArrayList<>();
     static List<Song> likedList = new ArrayList<>();
+    static List<Song> lofibeats = new ArrayList<>();
+
 
     public PlaylistCollection() {
 
@@ -23,8 +25,14 @@ public class PlaylistCollection {
                 R.drawable.liked_song);
 
 
-
         userPlaylist.add(likedSongs);
+
+        Playlist lofiBeats = new Playlist(
+                "lofi beats",
+                lofibeats,
+                R.drawable.lofibeats_cover);
+
+        presetPlaylist.add(lofiBeats);
     }
 
     public void addToLikedList(String id){
@@ -37,8 +45,8 @@ public class PlaylistCollection {
 
     public boolean isPresent(String id) {
         Song tempSong = songCollection.findSongById(id);
-        for (int o = 0; o < likedList.size(); o++){
-            if (tempSong.getId().equals((likedList.get(o).getId()))){
+        for (int i = 0; i < likedList.size(); i++){
+            if (tempSong.getId().equals((likedList.get(i).getId()))){
                 return true;
             }
         }
@@ -50,5 +58,19 @@ public class PlaylistCollection {
         likedList.remove(tempSong);
     }
 
+    public void addToLofiBeats(){
+        for (int i = 0; i < songList.size(); i++){
+            if ((songList.get(i).getGenre() == "lofi")) {
+                lofibeats.add(songList.get(i));
+                Log.d("lofiBeats", "lofiBeats contains " + songList.get(i) );
+            }
+        }
+
+    }
+
+
+    public void main(String[] args) {
+        addToLofiBeats();
+    }
 
 }

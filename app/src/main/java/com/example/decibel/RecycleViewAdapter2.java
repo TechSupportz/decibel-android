@@ -10,23 +10,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StyleRes;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.Text;
 
 import java.util.List;
 
 public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter2.MyViewHolder2> {
 
     SongCollection songCollection = new SongCollection();
-    List<Song> likedList;
+    PlaylistCollection playlistCollection = new PlaylistCollection();
+    List<Playlist> presetPlaylist;
     Context context;
 
-    public RecycleViewAdapter2(List<Song> likedList, Context context) {
-        this.likedList = likedList;
+    public RecycleViewAdapter2(List<Playlist> presetPlaylist, Context context) {
+        this.presetPlaylist = presetPlaylist;
         this.context = context;
     }
 
@@ -41,9 +44,9 @@ public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecycleViewAdapter2.MyViewHolder2 holder, int position) {
-        holder.songName.setText(likedList.get(position).getId());
-        holder.artistName.setText(likedList.get(position).getArtist());
-        Picasso.get().load(likedList.get(position).getCoverArt()).into(holder.coverArt);
+        holder.playlistName.setText(presetPlaylist.get(position).getName());
+        holder.artistName.setText("Decibel");
+        Picasso.get().load(presetPlaylist.get(position).getCoverArt()).into(holder.coverArt);
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,19 +61,19 @@ public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter
 
     @Override
     public int getItemCount() {
-        return likedList.size();
+        return presetPlaylist.size();
     }
 
     public class MyViewHolder2 extends RecyclerView.ViewHolder {
         ImageView coverArt;
-        TextView songName;
+        TextView playlistName;
         TextView artistName;
         ConstraintLayout parentLayout;
 
         public MyViewHolder2(@NonNull @NotNull View itemView) {
             super(itemView);
             coverArt = itemView.findViewById(R.id.coverArt);
-            songName = itemView.findViewById(R.id.songName);
+            playlistName = itemView.findViewById(R.id.songName);
             artistName = itemView.findViewById(R.id.artistName);
             parentLayout = itemView.findViewById(R.id.oneSongLayout);
         }

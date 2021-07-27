@@ -23,6 +23,7 @@ public class HomeFragment extends Fragment {
     SongCollection songCollection = new SongCollection();
     PlaylistCollection playlistCollection = new PlaylistCollection();
     List<Song> songList = songCollection.getSongList();
+    List<Playlist> userPlaylist = playlistCollection.userPlaylist;
 
     public HomeFragment() {
 
@@ -50,7 +51,7 @@ public class HomeFragment extends Fragment {
         layoutManager2 = new LinearLayoutManager(v.getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView2.setLayoutManager(layoutManager2);
 
-        mAdapter2 = new RecycleViewAdapter2(playlistCollection.likedList, v.getContext());
+        mAdapter2 = new RecycleViewAdapter2(playlistCollection.presetPlaylist, v.getContext());
         recyclerView2.setAdapter(mAdapter2);
 
 
