@@ -20,6 +20,7 @@ public class PlaylistCollection {
     public PlaylistCollection() {
 
         Playlist likedSongs = new Playlist(
+                "P1000",
                 "Liked Songs",
                 likedList,
                 R.drawable.liked_song);
@@ -28,6 +29,7 @@ public class PlaylistCollection {
         userPlaylist.add(likedSongs);
 
         Playlist lofiBeats = new Playlist(
+                "P2000",
                 "lofi beats",
                 lofibeats,
                 R.drawable.lofibeats_cover);
@@ -39,7 +41,7 @@ public class PlaylistCollection {
         Song tempSong = songCollection.findSongById(id);
         likedList.add(tempSong);
         for (int i = 0; i < likedList.size(); i++){
-            Log.d("Liked", "Liked list contains" + likedList.get(i).getId());
+            Log.d("Liked", "Liked list contains" + (likedList.get(i)).getId());
         }
     }
 

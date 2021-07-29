@@ -48,13 +48,16 @@ public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter
         holder.artistName.setText("Decibel");
         Picasso.get().load(presetPlaylist.get(position).getCoverArt()).into(holder.coverArt);
 
+        String id = presetPlaylist.get(position).getId();
+
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("temasek", "onClick: The song clicked was " + position);
-                Intent intent = new Intent(context, PlaySongActivity.class);
+                Intent intent = new Intent(context, PlaylistActivity.class);
                 intent.putExtra("index", position);
                 context.startActivity(intent);
+
             }
         });
     }

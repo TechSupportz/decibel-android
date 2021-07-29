@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/oneSongLayout"
-    android:layout_width="230dp"
-    android:layout_height="295dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
 
     <androidx.cardview.widget.CardView
@@ -12,7 +12,13 @@
         android:layout_height="263dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:cardBackgroundColor="#80000000"
         app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -21,8 +27,8 @@
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="164dp"
-                android:layout_height="155dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 app:cardCornerRadius="15dp"
                 app:layout_constraintBottom_toTopOf="@+id/cardView"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -55,6 +61,7 @@
                 android:id="@+id/cardView"
                 android:layout_width="0dp"
                 android:layout_height="89dp"
+                app:cardBackgroundColor="@color/black"
                 app:cardCornerRadius="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -71,9 +78,14 @@
                         android:layout_width="185dp"
                         android:layout_height="25dp"
                         android:layout_weight="1"
+                        android:fontFamily="@font/montserratmedium"
                         android:text="Song"
                         android:textAlignment="center"
+                        android:textColor="@color/white"
                         android:textSize="20sp"
+                        android:scrollHorizontally="true"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.538"
@@ -87,9 +99,11 @@
                         android:layout_height="21dp"
                         android:layout_marginBottom="16dp"
                         android:layout_weight="1"
+                        android:fontFamily="@font/montserratregular"
                         android:text="artist"
                         android:textAlignment="center"
-                        android:textSize="12sp"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"

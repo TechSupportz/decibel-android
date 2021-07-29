@@ -90,6 +90,7 @@ public class PlaySongActivity extends AppCompatActivity {
         displaySongBasedOnIndex(currentIndex);
         player.reset();
         playSong(fileLink);
+        loadData();
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -266,14 +267,18 @@ public class PlaySongActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = gson.toJson(saveList);
         editor.putString("playlist", json);
+        editor.apply();
+        Log.d("liked", json);
     }
 
     public void loadData(){
         SharedPreferences sharedPreferences = getSharedPreferences("shared pref", MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPreferences.getString("playlist", null);
-        Type type = new TypeToken<ArrayList<Playlist>>() {}.getType();
-        PlaylistCollection.likedList = gson.fromJson(json, type);
+        String json = sharedPreferences.getString("playlist", "");
+        if (!json.equals("")) {
+            Type type = new TypeToken<ArrayList<Song>>() {}.getType();
+            PlaylistCollection.likedList = gson.fromJson(json, type);
+        }
     }
 
 
@@ -336,6 +341,7 @@ public class PlaySongActivity extends AppCompatActivity {
             findViewById(R.id.imgCoverArt).clearAnimation();
         }
     }
+
 
     public void backgroundTint() {
 
