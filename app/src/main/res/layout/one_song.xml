@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/oneSongLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
@@ -43,7 +44,6 @@
                         android:id="@+id/coverArt"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-
                         android:layout_weight="1"
                         android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -75,17 +75,17 @@
 
                     <TextView
                         android:id="@+id/songName"
-                        android:layout_width="185dp"
-                        android:layout_height="25dp"
+                        android:layout_width="180dp"
+                        android:layout_height="24dp"
                         android:layout_weight="1"
+                        android:ellipsize="end"
                         android:fontFamily="@font/montserratmedium"
+                        android:maxLines="1"
+                        android:scrollHorizontally="true"
                         android:text="Song"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="20sp"
-                        android:scrollHorizontally="true"
-                        android:ellipsize="end"
-                        android:maxLines="1"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.538"
@@ -95,18 +95,19 @@
 
                     <TextView
                         android:id="@+id/artistName"
-                        android:layout_width="match_parent"
+                        android:layout_width="180dp"
                         android:layout_height="21dp"
                         android:layout_marginBottom="16dp"
                         android:layout_weight="1"
+                        android:ellipsize="end"
                         android:fontFamily="@font/montserratregular"
+                        android:scrollHorizontally="true"
                         android:text="artist"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

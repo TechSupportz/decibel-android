@@ -12,7 +12,7 @@ public class PlaylistCollection {
     List<Song> songList = songCollection.songList;
 
     List<Playlist> presetPlaylist  = new ArrayList<>();
-    List<Playlist> userPlaylist = new ArrayList<>();
+    List<Playlist> customPlaylist = new ArrayList<>();
     static List<Song> likedList = new ArrayList<>();
     static List<Song> lofibeats = new ArrayList<>();
 
@@ -20,21 +20,33 @@ public class PlaylistCollection {
     public PlaylistCollection() {
 
         Playlist likedSongs = new Playlist(
-                "P1000",
+                "P2000",
                 "Liked Songs",
+                "You",
                 likedList,
                 R.drawable.liked_song);
 
 
-        userPlaylist.add(likedSongs);
+        presetPlaylist.add(likedSongs);
 
         Playlist lofiBeats = new Playlist(
-                "P2000",
+                "P2001",
                 "lofi beats",
+                "Decibel",
                 lofibeats,
                 R.drawable.lofibeats_cover);
 
         presetPlaylist.add(lofiBeats);
+    }
+
+    public Playlist getCurrentPlaylist(String listType, int currenPlaylistIndex){
+        if (listType.equals("preset")){
+            return presetPlaylist.get(currenPlaylistIndex);
+        }
+        else if (listType.equals("custom")){
+            return customPlaylist.get(currenPlaylistIndex);
+        }
+        return null;
     }
 
     public void addToLikedList(String id){

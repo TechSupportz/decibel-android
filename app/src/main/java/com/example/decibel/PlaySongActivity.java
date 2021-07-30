@@ -2,8 +2,10 @@ package com.example.decibel;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.palette.graphics.Palette;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -12,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -112,6 +115,7 @@ public class PlaySongActivity extends AppCompatActivity {
     }
 
 
+
     public void displaySongBasedOnIndex(int selectedIndex) {
 
         Song song = songCollection.getCurrentSong(currentIndex);
@@ -135,6 +139,7 @@ public class PlaySongActivity extends AppCompatActivity {
         backgroundTint();
     }
 
+
     public void playSong(String songUrl) {
         try {
             player.reset();
@@ -143,7 +148,7 @@ public class PlaySongActivity extends AppCompatActivity {
             player.start();
             handler.removeCallbacks(progressBar);
             handler.postDelayed(progressBar, 0); //activates runnable
-            gracefullyStopWhenMusicEnds();
+            StopWhenMusicEnds();
             setTitle(title);
             spinCoverArt();
 
@@ -152,7 +157,7 @@ public class PlaySongActivity extends AppCompatActivity {
         }
     }
 
-    private void gracefullyStopWhenMusicEnds(){
+    private void StopWhenMusicEnds(){
         player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {

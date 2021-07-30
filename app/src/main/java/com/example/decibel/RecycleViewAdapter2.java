@@ -2,6 +2,7 @@ package com.example.decibel;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +46,7 @@ public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecycleViewAdapter2.MyViewHolder2 holder, int position) {
         holder.playlistName.setText(presetPlaylist.get(position).getName());
-        holder.artistName.setText("Decibel");
+        holder.artistName.setText(presetPlaylist.get(position).getCreator());
         Picasso.get().load(presetPlaylist.get(position).getCoverArt()).into(holder.coverArt);
 
         String id = presetPlaylist.get(position).getId();
@@ -55,7 +56,10 @@ public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter
             public void onClick(View view) {
                 Log.d("temasek", "onClick: The song clicked was " + position);
                 Intent intent = new Intent(context, PlaylistActivity.class);
-                intent.putExtra("index", position);
+                Bundle extras = new Bundle();
+                extras.putInt("index", position);
+                extras.putString("listType", "preset");
+                intent.putExtras(extras);
                 context.startActivity(intent);
 
             }

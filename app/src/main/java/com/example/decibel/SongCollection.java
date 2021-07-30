@@ -110,8 +110,8 @@ public class SongCollection {
         return songList;
     }
 
-    public Song getCurrentSong(int currentSongId){
-        return songList.get(currentSongId);
+    public Song getCurrentSong(int currentSongIndex){
+        return songList.get(currentSongIndex);
     }
 
     public int getNextSong(int currentSongIndex) {

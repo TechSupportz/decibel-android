@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +13,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.decibel.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     SongCollection songCollection = new SongCollection();
     PlaylistCollection playlistCollection = new PlaylistCollection();
     List<Song> songList = songCollection.getSongList();
-    List<Playlist> userPlaylist = playlistCollection.userPlaylist;
+    List<Playlist> customPlaylist = playlistCollection.customPlaylist;
 
 
     @Override
@@ -55,5 +60,19 @@ public class MainActivity extends AppCompatActivity {
 
         mAdapter2 = new RecycleViewAdapter2(playlistCollection.presetPlaylist, this);
         recyclerView2.setAdapter(mAdapter2);
+
+        playlistCollection.addToLofiBeats();
+        loadData();
+
+    }
+
+    public void loadData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared pref", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("playlist", "");
+        if (!json.equals("")) {
+            Type type = new TypeToken<ArrayList<Song>>() {}.getType();
+            PlaylistCollection.likedList = gson.fromJson(json, type);
+        }
     }
 }
