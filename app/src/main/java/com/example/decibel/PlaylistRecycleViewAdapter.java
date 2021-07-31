@@ -21,6 +21,7 @@ import java.util.List;
 
 public class PlaylistRecycleViewAdapter extends RecyclerView.Adapter<PlaylistRecycleViewAdapter.MyViewHolder> {
 
+    SongCollection songCollection = new SongCollection();
     List<Song> songList;
     Context context;
 
@@ -43,13 +44,15 @@ public class PlaylistRecycleViewAdapter extends RecyclerView.Adapter<PlaylistRec
         holder.songName.setText(songList.get(position).getTitle());
         holder.artistName.setText(songList.get(position).getArtist());
         Picasso.get().load(songList.get(position).getCoverArt()).into(holder.coverArt);
+        String id = songList.get(position).getId();
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("temasek", "onClick: The song clicked was " + position);
+                Log.d("temasek", "onClick: The song clicked was " + ""+id);
+                int index = songCollection.searchSongById(id);
                 Intent intent = new Intent(context, PlaySongActivity.class);
-                intent.putExtra("index", position);
+                intent.putExtra("index", index);
                 context.startActivity(intent);
             }
         });

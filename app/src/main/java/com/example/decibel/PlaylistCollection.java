@@ -73,13 +73,14 @@ public class PlaylistCollection {
     }
 
     public void addToLofiBeats(){
-        for (int i = 0; i < songList.size(); i++){
-            if ((songList.get(i).getGenre() == "lofi")) {
-                lofibeats.add(songList.get(i));
-                Log.d("lofiBeats", "lofiBeats contains " + songList.get(i) );
+        if (lofibeats.size()==0) {
+            for (int i = 0; i < songList.size(); i++) {
+                if ((songList.get(i).getGenre() == "lofi")) {
+                    lofibeats.add(songList.get(i));
+                    Log.d("lofiBeats", "lofiBeats contains " + songList.get(i));
+                }
             }
         }
-
     }
 
 

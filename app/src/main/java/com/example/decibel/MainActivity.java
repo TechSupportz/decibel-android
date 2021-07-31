@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView2.setAdapter(mAdapter2);
 
         playlistCollection.addToLofiBeats();
+
         loadData();
 
     }
