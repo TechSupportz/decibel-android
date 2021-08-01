@@ -94,11 +94,11 @@ public class SongCollection {
 
         Song neverGonnaGiveYouUp = new Song(
                 "S1010",
-                "Never Gonna Give You Up",
-                "Rick Astley",
+                "Mystery Song?",
+                "Decibel",
                 "pop",
                 "https://cdn.discordapp.com/attachments/854735014770901055/867618966376939530/yt1s.com_-_Rick_Astley_Never_Gonna_Give_You_Up_Official_Music_Video.mp3",
-                "https://i.scdn.co/image/ab67616d0000b27315ebbedaacef61af244262a8");
+                "https://cdn.discordapp.com/attachments/854735014770901055/871302414928580608/206-2063136_super-mario-coin-block-hd-png-download.png");
 
         Song lights = new Song(
                 "S1011",
