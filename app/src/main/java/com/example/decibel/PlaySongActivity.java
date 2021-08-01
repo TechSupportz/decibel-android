@@ -2,26 +2,20 @@ package com.example.decibel;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 import androidx.palette.graphics.Palette;
 
-import android.app.Notification;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
-import android.view.animation.BounceInterpolator;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.OvershootInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -34,13 +28,10 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PlaySongActivity extends AppCompatActivity {
 
@@ -123,7 +114,7 @@ public class PlaySongActivity extends AppCompatActivity {
         this.id = song.getId();
         this.title = song.getTitle();
         this.artist = song.getArtist();
-        this.fileLink = song.getFindLink();
+        this.fileLink = song.getSongLink();
         this.coverArt = song.getCoverArt();
 
         TextView txtTitle = findViewById(R.id.txtSongTitle);
