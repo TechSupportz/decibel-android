@@ -235,13 +235,13 @@ public class PlaySongActivity extends AppCompatActivity {
         if (likeFlag==false) {
             btnLike.animate().alpha(1f).setDuration(150).start();
             playlistCollection.addToLikedList(id);
-            saveData(PlaylistCollection.likedList);
         }
         else{
             btnLike.animate().alpha(0f).setDuration(150).start();
             playlistCollection.removeFrmLikedList(id);
-            saveData(PlaylistCollection.likedList);
         }
+        saveData(PlaylistCollection.likedList);
+        loadData();
         Log.d("Liked", " " + PlaylistCollection.likedList.size());
         likeFlag = !likeFlag;
     }

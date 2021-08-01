@@ -57,6 +57,11 @@ public class PlaylistCollection {
         }
     }
 
+    public void removeFrmLikedList(String id){
+        Song tempSong = songCollection.findSongById(id);
+        likedList.remove(tempSong);
+    }
+
     public boolean isPresent(String id) {
         Song tempSong = songCollection.findSongById(id);
         for (int i = 0; i < likedList.size(); i++){
@@ -67,10 +72,6 @@ public class PlaylistCollection {
         return false;
     }
 
-    public void removeFrmLikedList(String id){
-        Song tempSong = songCollection.findSongById(id);
-        likedList.remove(tempSong);
-    }
 
     public void addToLofiBeats(){
         if (lofibeats.size()==0) {

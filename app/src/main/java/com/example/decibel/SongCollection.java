@@ -7,7 +7,7 @@ import java.util.WeakHashMap;
 
 public class SongCollection {
 
-    List<Song> songList = new ArrayList<Song>();
+    List<Song> songList = new ArrayList<>();
 
     public SongCollection() {
         Song ifICantHaveYou = new Song(
