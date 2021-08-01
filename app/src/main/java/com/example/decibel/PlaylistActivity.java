@@ -6,10 +6,12 @@ import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Adapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -133,5 +135,12 @@ public class PlaylistActivity extends AppCompatActivity {
                 Log.d("Colour", "bitmap prepare");
             }
         });
+    }
+    public void playSongs(View view) {
+        String id = playlist.getPlaylistSongs().get(0).getId();
+        int index = songCollection.searchSongById(id);
+        Intent intent = new Intent(this, PlaySongActivity.class);
+        intent.putExtra("index", index);
+        this.startActivity(intent);
     }
 }
