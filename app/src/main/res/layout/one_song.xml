@@ -5,16 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/oneSongLayout"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:scaleY="0.90"
+    android:scaleX="0.90">
 
 
     <androidx.cardview.widget.CardView
         android:layout_width="198dp"
         android:layout_height="265dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="14dp"
         app:cardBackgroundColor="#80000000"
         app:cardCornerRadius="20dp"
         app:cardElevation="0dp"

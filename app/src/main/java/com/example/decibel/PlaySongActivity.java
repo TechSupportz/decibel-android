@@ -388,7 +388,6 @@ public class PlaySongActivity extends AppCompatActivity {
             player.release();
             rotateAnimation.cancel();
             handler.removeCallbacks(progressBar);
-
         }
         Intent goHome = new Intent(this, MainActivity.class);
         this.startActivity(goHome);
