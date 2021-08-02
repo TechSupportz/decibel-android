@@ -69,7 +69,12 @@ public class PlaylistCollection {
 
     public void removeFrmLikedList(String id){
         Song tempSong = songCollection.findSongById(id);
-        likedList.remove(tempSong);
+        for (int i = 0; i < likedList.size(); i++){
+            if (tempSong.getId().equals((likedList.get(i).getId()))) {
+                likedList.remove(i);
+                break;
+            }
+        }
     }
 
     public void addToLofiBeats(){
@@ -84,8 +89,5 @@ public class PlaylistCollection {
     }
 
 
-    public void main(String[] args) {
-        addToLofiBeats();
-    }
 
 }

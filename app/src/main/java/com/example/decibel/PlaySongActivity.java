@@ -84,7 +84,6 @@ public class PlaySongActivity extends AppCompatActivity {
         displaySongBasedOnIndex(currentIndex);
         player.reset();
         playSong(fileLink);
-        loadData();
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -267,16 +266,6 @@ public class PlaySongActivity extends AppCompatActivity {
         Log.d("liked", json);
     }
 
-    public void loadData(){
-        SharedPreferences sharedPreferences = getSharedPreferences("shared pref", MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("playlist", "");
-        if (!json.equals("")) {
-            Type type = new TypeToken<ArrayList<Song>>() {}.getType();
-            PlaylistCollection.likedList = gson.fromJson(json, type);
-        }
-    }
-
 
 
     public String createTimeLabel (int duration){
@@ -395,10 +384,6 @@ public class PlaySongActivity extends AppCompatActivity {
 
 
     public void goHome(View view) {
-        onBackPressed();
-    }
-
-    public void onBackPressed() {
         if (player.isPlaying()) {
             player.release();
             rotateAnimation.cancel();
@@ -407,6 +392,16 @@ public class PlaySongActivity extends AppCompatActivity {
         }
         Intent goHome = new Intent(this, MainActivity.class);
         this.startActivity(goHome);
+    }
+
+    public void onBackPressed() {
+        if (player.isPlaying()) {
+            player.release();
+            rotateAnimation.cancel();
+            handler.removeCallbacks(progressBar);
+            super.onBackPressed();
+
+        }
     }
 }
 

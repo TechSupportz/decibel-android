@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -17,9 +18,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlaylistActivity extends AppCompatActivity {
@@ -76,7 +81,7 @@ public class PlaylistActivity extends AppCompatActivity {
 
         displayPlaylistBasedOnIndex();
         backgroundTint();
-
+        loadData();
     }
 
     public void displayPlaylistBasedOnIndex(){
@@ -142,5 +147,15 @@ public class PlaylistActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PlaySongActivity.class);
         intent.putExtra("index", index);
         this.startActivity(intent);
+    }
+
+    public void loadData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared pref", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("playlist", "");
+        if (!json.equals("")) {
+            Type type = new TypeToken<ArrayList<Song>>() {}.getType();
+            PlaylistCollection.likedList = gson.fromJson(json, type);
+        }
     }
 }
