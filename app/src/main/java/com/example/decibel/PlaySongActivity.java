@@ -41,6 +41,8 @@ public class PlaySongActivity extends AppCompatActivity {
     private String fileLink;
     private String coverArt;
     private int currentIndex = -1;
+    private int currentIndexPos = -1;
+    private List<Integer> songIndexList = new ArrayList<>();
 
     private MediaPlayer player = new MediaPlayer();
     SongCollection songCollection = new SongCollection();
@@ -80,10 +82,15 @@ public class PlaySongActivity extends AppCompatActivity {
 
         Bundle songData = this.getIntent().getExtras();
         currentIndex = songData.getInt("index");
+        songIndexList = songData.getIntegerArrayList("songIndexList");
+        currentIndexPos = songIndexList.indexOf(currentIndex);
+
         Log.d("temasek", "Retrieved position is:" + currentIndex);
+        Log.d("queue", "SongIndexes: " + songIndexList);
         displaySongBasedOnIndex(currentIndex);
         player.reset();
         playSong(fileLink);
+        loadData();
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -103,8 +110,6 @@ public class PlaySongActivity extends AppCompatActivity {
         });
 
     }
-
-
 
     public void displaySongBasedOnIndex(int selectedIndex) {
 
@@ -179,22 +184,37 @@ public class PlaySongActivity extends AppCompatActivity {
         }
     }
 
+    public int getNextIndex(){
+        currentIndex = songIndexList.get(currentIndexPos+1);
+        currentIndexPos = songIndexList.indexOf(currentIndex);
+        return currentIndex;
+    }
+
+    public int getPrevIndex(){
+        currentIndex = songIndexList.get(currentIndexPos-1);
+        currentIndexPos = songIndexList.indexOf(currentIndex);
+        return currentIndex;
+    }
+
     public void playNext(View view) {
         if (shuffleFlag){
-            int max = (songCollection.getSongList()).size() - 1;
+            int max = (songIndexList.size() - 1);
             int min = 0;
             int random = (new Random()).nextInt((max - min) + 1) + min;
 
+
             if (random == currentIndex){
-                currentIndex = random+1;
+                random = random+1;
+                currentIndex = songIndexList.get(random);
             }
             else{
-                currentIndex = random;
+                currentIndex = songIndexList.get(random);
             }
         }
         else {
-            currentIndex = songCollection.getNextSong(currentIndex);
+            currentIndex = getNextIndex();
         }
+        currentIndexPos = songIndexList.indexOf(currentIndex);
         Log.d("temasek", "After playNext, the index is now :" + currentIndex);
         displaySongBasedOnIndex(currentIndex);
         playSong(fileLink);
@@ -202,7 +222,7 @@ public class PlaySongActivity extends AppCompatActivity {
     }
 
     public void playPrevious(View view) {
-        currentIndex = songCollection.getPrevSong(currentIndex);
+        currentIndex = getPrevIndex();
         Log.d("temasek", "After playPrevious, the index is now :" + currentIndex);
         displaySongBasedOnIndex(currentIndex);
         playSong(fileLink);
@@ -264,6 +284,16 @@ public class PlaySongActivity extends AppCompatActivity {
         editor.putString("playlist", json);
         editor.apply();
         Log.d("liked", json);
+    }
+
+    public void loadData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared pref", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("playlist", "");
+        if (!json.equals("")) {
+            Type type = new TypeToken<ArrayList<Song>>() {}.getType();
+            PlaylistCollection.likedList = gson.fromJson(json, type);
+        }
     }
 
 
@@ -398,9 +428,9 @@ public class PlaySongActivity extends AppCompatActivity {
             player.release();
             rotateAnimation.cancel();
             handler.removeCallbacks(progressBar);
-            super.onBackPressed();
-
         }
+        super.onBackPressed();
+        loadData();
     }
 }
 

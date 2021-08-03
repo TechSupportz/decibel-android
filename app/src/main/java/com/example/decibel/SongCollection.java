@@ -7,7 +7,9 @@ import java.util.WeakHashMap;
 
 public class SongCollection {
 
-    List<Song> songList = new ArrayList<Song>();
+    ArrayList<Integer> indexList = new ArrayList<>();
+
+    List<Song> songList = new ArrayList<>();
 
     public SongCollection() {
         Song ifICantHaveYou = new Song(
@@ -231,6 +233,10 @@ public class SongCollection {
         songList.add(tigerPark);
         songList.add(jasmine);
 
+        for (int index = 0; index < songList.size(); index++) {
+            indexList.add(index);
+        }
+
     }
 
     public Song findSongById(String id){
@@ -260,6 +266,11 @@ public class SongCollection {
     public Song getCurrentSong(int currentSongIndex){
         return songList.get(currentSongIndex);
     }
+
+    public ArrayList<Integer> getIndexList(){
+        return indexList;
+    }
+
 
     public int getNextSong(int currentSongIndex) {
 

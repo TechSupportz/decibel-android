@@ -2,6 +2,7 @@ package com.example.decibel;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +18,14 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlaylistRecycleViewAdapter extends RecyclerView.Adapter<PlaylistRecycleViewAdapter.MyViewHolder> {
 
     SongCollection songCollection = new SongCollection();
+    PlaylistActivity playlistActivity = new PlaylistActivity();
+    List<Integer> playlistSongIndex = PlaylistActivity.playlistSongIndex;
     List<Song> songList;
     Context context;
 
@@ -52,7 +56,11 @@ public class PlaylistRecycleViewAdapter extends RecyclerView.Adapter<PlaylistRec
                 Log.d("temasek", "onClick: The song clicked was " + ""+id);
                 int index = songCollection.searchSongById(id);
                 Intent intent = new Intent(context, PlaySongActivity.class);
-                intent.putExtra("index", index);
+                Bundle extras = new Bundle();
+                extras.putInt("index", index);
+                extras.putIntegerArrayList("songIndexList", (ArrayList<Integer>) playlistSongIndex);
+                Log.d("queue", "playlistSongIndex size: " + playlistSongIndex.size());
+                intent.putExtras(extras);
                 context.startActivity(intent);
             }
         });

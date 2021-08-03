@@ -2,6 +2,7 @@ package com.example.decibel;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +19,12 @@ import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.MyViewHolder> {
 
+    SongCollection songCollection = new SongCollection();
     List<Song> songList;
     Context context;
 
@@ -48,9 +51,11 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("temasek", "onClick: The song clicked was " + position);
                 Intent intent = new Intent(context, PlaySongActivity.class);
-                intent.putExtra("index", position);
+                Bundle extras = new Bundle();
+                extras.putInt("index", position);
+                extras.putIntegerArrayList("songIndexList", songCollection.getIndexList());
+                intent.putExtras(extras);
                 context.startActivity(intent);
             }
         });

@@ -40,6 +40,7 @@ public class PlaylistActivity extends AppCompatActivity {
     private RecyclerView playlistRecyclerView;
     private RecyclerView.Adapter playlistAdapter;
     private RecyclerView.LayoutManager playlistlayoutManager;
+    public static List<Integer> playlistSongIndex = new ArrayList<>();
 
 
     SongCollection songCollection = new SongCollection();
@@ -79,9 +80,10 @@ public class PlaylistActivity extends AppCompatActivity {
 
         Log.d("temasek", "Retrieved position is:" + currentIndex);
 
+        loadData();
         displayPlaylistBasedOnIndex();
         backgroundTint();
-        loadData();
+        createSongIndexList();
     }
 
     public void displayPlaylistBasedOnIndex(){
@@ -141,11 +143,27 @@ public class PlaylistActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void createSongIndexList(){
+        playlistSongIndex.clear();
+        for (int i = 0; i < playlistSongs.size(); i++) {
+            Song tempSong = playlistSongs.get(i);
+            String tempSongId = tempSong.getId();
+            int songIndex = songCollection.searchSongById(tempSongId);
+            playlistSongIndex.add(songIndex);
+        }
+    }
+
+
     public void playSongs(View view) {
         String id = playlist.getPlaylistSongs().get(0).getId();
         int index = songCollection.searchSongById(id);
         Intent intent = new Intent(this, PlaySongActivity.class);
-        intent.putExtra("index", index);
+        Bundle extras = new Bundle();
+        extras.putInt("index", index);
+        extras.putIntegerArrayList("songIndexList", (ArrayList<Integer>) playlistSongIndex);
+        Log.d("queue", "playlistSongIndex size: " + playlistSongIndex.size());
+        intent.putExtras(extras);
         this.startActivity(intent);
     }
 

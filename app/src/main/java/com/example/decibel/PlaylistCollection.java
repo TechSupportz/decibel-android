@@ -39,12 +39,12 @@ public class PlaylistCollection {
         presetPlaylist.add(lofiBeats);
     }
 
-    public Playlist getCurrentPlaylist(String listType, int currenPlaylistIndex){
+    public Playlist getCurrentPlaylist(String listType, int currentPlaylistIndex){
         if (listType.equals("preset")){
-            return presetPlaylist.get(currenPlaylistIndex);
+            return presetPlaylist.get(currentPlaylistIndex);
         }
         else if (listType.equals("custom")){
-            return customPlaylist.get(currenPlaylistIndex);
+            return customPlaylist.get(currentPlaylistIndex);
         }
         return null;
     }
@@ -87,6 +87,7 @@ public class PlaylistCollection {
             }
         }
     }
+
 
 
 
