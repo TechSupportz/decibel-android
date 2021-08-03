@@ -20,6 +20,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
+            android:theme="@style/SplashTheme"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>
