@@ -3,22 +3,23 @@ package com.example.decibel;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.SearchView;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.example.decibel.Adapters.LibraryRecycleViewAdapter;
-import com.example.decibel.Adapters.RecycleViewAdapter;
 
 import java.util.List;
 
 public class LibraryActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView libraryRecyclerView;
+    private LibraryRecycleViewAdapter libraryAdapter;
+    private RecyclerView.LayoutManager libraryLayoutManager;
     private ImageView background;
+    SearchView searchView;
 
     SongCollection songCollection = new SongCollection();
     List<Song> songList = songCollection.getSongList();
@@ -32,13 +33,30 @@ public class LibraryActivity extends AppCompatActivity {
         background = findViewById(R.id.backgroundImage);
         background.setBackgroundColor(Color.parseColor("#45A7FB"));
 
-        recyclerView = findViewById(R.id.librarySongList);
-        recyclerView.setHasFixedSize(true);
+        libraryRecyclerView = findViewById(R.id.librarySongList);
+        libraryRecyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
+        libraryLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        libraryRecyclerView.setLayoutManager(libraryLayoutManager);
 
-        mAdapter = new LibraryRecycleViewAdapter(songList, this);
-        recyclerView.setAdapter(mAdapter);
+        libraryAdapter = new LibraryRecycleViewAdapter(songList, this);
+        libraryRecyclerView.setAdapter(libraryAdapter);
+
+        searchView = findViewById(R.id.searchView);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                libraryAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
     }
+
 }

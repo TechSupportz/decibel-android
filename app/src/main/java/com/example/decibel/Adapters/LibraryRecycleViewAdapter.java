@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,17 +23,20 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class LibraryRecycleViewAdapter extends RecyclerView.Adapter<LibraryRecycleViewAdapter.MyViewHolder> {
+public class LibraryRecycleViewAdapter extends RecyclerView.Adapter<LibraryRecycleViewAdapter.MyViewHolder> implements Filterable {
 
     SongCollection songCollection = new SongCollection();
     List<Song> songList;
+    List<Song> songListFull;
     Context context;
 
     public LibraryRecycleViewAdapter(List<Song> songList, Context context) {
         this.songList = songList;
         this.context = context;
+        this.songListFull = new ArrayList<>(songList); //Creates copy of songList that can be edited independently
     }
 
     @NonNull
@@ -66,6 +71,44 @@ public class LibraryRecycleViewAdapter extends RecyclerView.Adapter<LibraryRecyc
     public int getItemCount() {
         return songList.size();
     }
+
+    @Override
+    public Filter getFilter(){
+        return searchFilter;
+    }
+
+    private Filter searchFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Song> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(songListFull);
+            }
+            else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (Song song : songListFull) {
+                    if (song.getTitle().toLowerCase().contains(filterPattern)){
+                        filteredList.add(song);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            songList.clear();
+            songList.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView coverArt;
