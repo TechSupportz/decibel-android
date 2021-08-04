@@ -53,13 +53,15 @@ public class LibraryRecycleViewAdapter extends RecyclerView.Adapter<LibraryRecyc
         holder.songName.setText(songList.get(position).getTitle());
         holder.artistName.setText(songList.get(position).getArtist());
         Picasso.get().load(songList.get(position).getCoverArt()).into(holder.coverArt);
+        String id = songList.get(position).getId();
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int index = songCollection.searchSongById(id);
                 Intent intent = new Intent(context, PlaySongActivity.class);
                 Bundle extras = new Bundle();
-                extras.putInt("index", position);
+                extras.putInt("index", index);
                 extras.putIntegerArrayList("songIndexList", songCollection.getIndexList());
                 intent.putExtras(extras);
                 context.startActivity(intent);
@@ -89,7 +91,7 @@ public class LibraryRecycleViewAdapter extends RecyclerView.Adapter<LibraryRecyc
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (Song song : songListFull) {
-                    if (song.getTitle().toLowerCase().contains(filterPattern)){
+                    if (song.getTitle().toLowerCase().startsWith(filterPattern)){
                         filteredList.add(song);
                     }
                 }
