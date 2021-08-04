@@ -1,4 +1,4 @@
-package com.example.decibel;
+package com.example.decibel.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.decibel.PlaySongActivity;
+import com.example.decibel.PlaylistActivity;
+import com.example.decibel.R;
+import com.example.decibel.Song;
+import com.example.decibel.SongCollection;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;

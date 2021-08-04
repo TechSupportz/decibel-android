@@ -1,6 +1,5 @@
 package com.example.decibel;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,11 +7,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.example.decibel.R;
+import com.example.decibel.Adapters.RecycleViewAdapter;
+import com.example.decibel.Adapters.RecycleViewAdapter2;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         background = findViewById(R.id.backgroundImage);
         background.setBackgroundColor(Color.parseColor("#45A7FB"));
 
-        recyclerView = findViewById(R.id.songList);
+        recyclerView = findViewById(R.id.librarySongList);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -75,5 +74,10 @@ public class MainActivity extends AppCompatActivity {
             Type type = new TypeToken<ArrayList<Song>>() {}.getType();
             PlaylistCollection.likedList = gson.fromJson(json, type);
         }
+    }
+
+    public void goLibrary(View view) {
+        Intent intent = new Intent(this, LibraryActivity.class);
+        this.startActivity(intent);
     }
 }

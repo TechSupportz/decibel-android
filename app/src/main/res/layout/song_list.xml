@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/songListLayout"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/songListLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <!--android:background="@color/cardview_dark_background"-->
 
 
     <androidx.cardview.widget.CardView
@@ -21,8 +21,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_width="@dimen/_48sdp"
+            android:layout_height="@dimen/_48sdp"
             android:layout_gravity="center"
             app:cardCornerRadius="10dp">
 
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/montserratmedium"
         android:text="Song Title"
         android:textColor="@color/white"
@@ -53,14 +53,13 @@
         android:id="@+id/artist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="12dp"
         android:fontFamily="@font/montserratlight"
         android:text="Artist"
         android:textColor="@color/white"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/cardView4"
-        app:layout_constraintTop_toBottomOf="@+id/songTitle" />
+        app:layout_constraintBottom_toBottomOf="@+id/cardView4"
+        app:layout_constraintStart_toStartOf="@+id/songTitle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
