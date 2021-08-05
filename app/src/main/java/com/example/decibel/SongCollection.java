@@ -1,15 +1,20 @@
 package com.example.decibel;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.WeakHashMap;
 
 public class SongCollection {
 
     ArrayList<Integer> indexList = new ArrayList<>();
-
     List<Song> songList = new ArrayList<>();
+    List<Song> songListCopy = new ArrayList<>();
+    List<Song> forYou = new ArrayList<>();
 
     public SongCollection() {
         Song ifICantHaveYou = new Song(
@@ -235,7 +240,10 @@ public class SongCollection {
 
         for (int index = 0; index < songList.size(); index++) {
             indexList.add(index);
+            songListCopy.add(songList.get(index));
         }
+
+        generateForYou();
 
     }
 
@@ -259,6 +267,13 @@ public class SongCollection {
         return -1;
     }
 
+    private void generateForYou(){
+        Collections.shuffle(songListCopy);
+        for (int i = 0; i < 5; i++){
+            forYou.add(songListCopy.get(i));
+        }
+    }
+
     public List<Song> getSongList() {
         return songList;
     }
@@ -271,23 +286,7 @@ public class SongCollection {
         return indexList;
     }
 
-
-    public int getNextSong(int currentSongIndex) {
-
-        if (currentSongIndex >= songList.size()-1){
-            return 0;
-        }
-        else{
-            return currentSongIndex + 1;
-        }
-    }
-
-    public int getPrevSong(int currentSongIndex) {
-        if (currentSongIndex <= 0){
-            return currentSongIndex;
-        }
-        else{
-            return currentSongIndex - 1;
-        }
+    public List<Song> getForYouList() {
+        return forYou;
     }
 }

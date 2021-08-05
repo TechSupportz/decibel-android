@@ -38,6 +38,7 @@ public class PlaySongActivity extends AppCompatActivity {
     private String id;
     private String title;
     private String artist;
+    private String genre;
     private String fileLink;
     private String coverArt;
     private int currentIndex = -1;
@@ -115,9 +116,11 @@ public class PlaySongActivity extends AppCompatActivity {
 
         Song song = songCollection.getCurrentSong(currentIndex);
 
+
         this.id = song.getId();
         this.title = song.getTitle();
         this.artist = song.getArtist();
+        this.genre = song.getGenre();
         this.fileLink = song.getSongLink();
         this.coverArt = song.getCoverArt();
 
@@ -126,6 +129,9 @@ public class PlaySongActivity extends AppCompatActivity {
 
         TextView txtArtist = findViewById(R.id.txtArtist);
         txtArtist.setText(artist);
+
+        TextView txtGenre = findViewById(R.id.txtGenre);
+        txtGenre.setText(genre);
 
         ImageView iCoverArt = findViewById(R.id.imgCoverArt);
         Picasso.get().load(coverArt).into(iCoverArt);
@@ -140,6 +146,10 @@ public class PlaySongActivity extends AppCompatActivity {
             player.reset();
             player.setDataSource(songUrl);
             player.prepare();
+            int duration = player.getDuration();
+            seekBar.setMax(duration);
+            String timerLabel = createTimeLabel(duration);
+            songDurationTxt.setText(timerLabel);
             player.start();
             handler.removeCallbacks(progressBar);
             handler.postDelayed(progressBar, 0); //activates runnable
@@ -185,14 +195,26 @@ public class PlaySongActivity extends AppCompatActivity {
     }
 
     public int getNextIndex(){
-        currentIndex = songIndexList.get(currentIndexPos+1);
-        currentIndexPos = songIndexList.indexOf(currentIndex);
+        if (currentIndexPos == (songIndexList.size()-1)) {
+            currentIndex = songIndexList.get(0);
+            currentIndexPos = songIndexList.indexOf(currentIndex);
+        }
+        else {
+            currentIndex = songIndexList.get(currentIndexPos + 1);
+            currentIndexPos = songIndexList.indexOf(currentIndex);
+        }
         return currentIndex;
     }
 
     public int getPrevIndex(){
-        currentIndex = songIndexList.get(currentIndexPos-1);
-        currentIndexPos = songIndexList.indexOf(currentIndex);
+        if (currentIndexPos == 0) {
+            currentIndex = songIndexList.get(songIndexList.size()-1);
+            currentIndexPos = songIndexList.indexOf(currentIndex);
+        }
+        else {
+            currentIndex = songIndexList.get(currentIndexPos - 1);
+            currentIndexPos = songIndexList.indexOf(currentIndex);
+        }
         return currentIndex;
     }
 
@@ -218,6 +240,7 @@ public class PlaySongActivity extends AppCompatActivity {
         Log.d("temasek", "After playNext, the index is now :" + currentIndex);
         displaySongBasedOnIndex(currentIndex);
         playSong(fileLink);
+        btnPlayPause.setImageResource(R.drawable.pause_icon);
         backgroundTint();
     }
 
@@ -226,6 +249,7 @@ public class PlaySongActivity extends AppCompatActivity {
         Log.d("temasek", "After playPrevious, the index is now :" + currentIndex);
         displaySongBasedOnIndex(currentIndex);
         playSong(fileLink);
+        btnPlayPause.setImageResource(R.drawable.pause_icon);
         backgroundTint();
     }
 
@@ -400,12 +424,8 @@ public class PlaySongActivity extends AppCompatActivity {
         public void run() {
             Log.d("temasek", "running" + count++);
             if (player != null && player.isPlaying()) {
-                int duration = player.getDuration();
                 int currentPos = player.getCurrentPosition();
-                seekBar.setMax(duration);
                 seekBar.setProgress(currentPos);
-                String timerLabel = createTimeLabel(duration);
-                songDurationTxt.setText(timerLabel);
                 songProgTxt.setText(createTimeLabel(currentPos));
                 handler.postDelayed(this, 1000); //calls runnable repeatedly every 1000ms (1s)
             }

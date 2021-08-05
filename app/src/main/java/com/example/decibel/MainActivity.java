@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     SongCollection songCollection = new SongCollection();
     PlaylistCollection playlistCollection = new PlaylistCollection();
     List<Song> songList = songCollection.getSongList();
-    List<Playlist> customPlaylist = playlistCollection.customPlaylist;
+    List<Song> forYou = songCollection.getForYouList();
 
 
     @Override
@@ -42,13 +42,13 @@ public class MainActivity extends AppCompatActivity {
         background = findViewById(R.id.backgroundImage);
         background.setBackgroundColor(Color.parseColor("#45A7FB"));
 
-        recyclerView = findViewById(R.id.librarySongList);
+        recyclerView = findViewById(R.id.forYouSongList);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new RecycleViewAdapter(songList, this);
+        mAdapter = new RecycleViewAdapter(forYou, this);
         recyclerView.setAdapter(mAdapter);
 
         recyclerView2 = findViewById(R.id.playlistList);
@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView2.setAdapter(mAdapter2);
 
         playlistCollection.addToLofiBeats();
+        playlistCollection.addToPop();
 
         loadData();
-
     }
 
     public void loadData(){

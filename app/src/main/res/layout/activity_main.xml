@@ -62,30 +62,29 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/libraryHeader"
+                android:id="@+id/forYouHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/montserratbold"
-                android:text="Songs:"
+                android:text="Songs For You:"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/librarySongList"
+                app:layout_constraintBottom_toTopOf="@+id/forYouSongList"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/librarySongList"
+                android:id="@+id/forYouSongList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="267dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.057">
-
-            </androidx.recyclerview.widget.RecyclerView>
+                app:layout_constraintVertical_bias="0.057"/>
 
             <TextView
                 android:id="@+id/playlistHeader"
@@ -108,7 +107,30 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/librarySongList" />
+                app:layout_constraintTop_toBottomOf="@+id/forYouSongList" />
+
+            <TextView
+                android:id="@+id/artistHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/montserratbold"
+                android:text="Best of ______:"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/artistList"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/artistList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/playlistList" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

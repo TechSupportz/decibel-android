@@ -15,6 +15,7 @@ public class PlaylistCollection {
     List<Playlist> customPlaylist = new ArrayList<>();
     static List<Song> likedList = new ArrayList<>();
     static List<Song> lofibeats = new ArrayList<>();
+    static List<Song> popforDays = new ArrayList<>();
 
 
     public PlaylistCollection() {
@@ -36,7 +37,15 @@ public class PlaylistCollection {
                 lofibeats,
                 R.drawable.lofibeats_cover);
 
+        Playlist popForDays = new Playlist(
+                "P2002",
+                "Pop for days",
+                "Decibel",
+                popforDays,
+                R.drawable.home1);
+
         presetPlaylist.add(lofiBeats);
+        presetPlaylist.add(popForDays);
     }
 
     public Playlist getCurrentPlaylist(String listType, int currentPlaylistIndex){
@@ -83,6 +92,17 @@ public class PlaylistCollection {
                 if ((songList.get(i).getGenre() == "lofi")) {
                     lofibeats.add(songList.get(i));
                     Log.d("lofiBeats", "lofiBeats contains " + songList.get(i));
+                }
+            }
+        }
+    }
+
+    public void addToPop(){
+        if (popforDays.size()==0) {
+            for (int i = 0; i < songList.size(); i++) {
+                if ((songList.get(i).getGenre() == "pop")) {
+                    popforDays.add(songList.get(i));
+                    Log.d("pop", "pop contains " + songList.get(i));
                 }
             }
         }
