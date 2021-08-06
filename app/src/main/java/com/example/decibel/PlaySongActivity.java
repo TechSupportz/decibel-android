@@ -27,6 +27,8 @@ import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import org.apache.commons.text.WordUtils;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -116,11 +118,10 @@ public class PlaySongActivity extends AppCompatActivity {
 
         Song song = songCollection.getCurrentSong(currentIndex);
 
-
         this.id = song.getId();
         this.title = song.getTitle();
         this.artist = song.getArtist();
-        this.genre = song.getGenre();
+        this.genre = WordUtils.capitalizeFully(song.getGenre());
         this.fileLink = song.getSongLink();
         this.coverArt = song.getCoverArt();
 
@@ -132,6 +133,8 @@ public class PlaySongActivity extends AppCompatActivity {
 
         TextView txtGenre = findViewById(R.id.txtGenre);
         txtGenre.setText(genre);
+
+        Log.d("Genre", "genre is " + genre);
 
         ImageView iCoverArt = findViewById(R.id.imgCoverArt);
         Picasso.get().load(coverArt).into(iCoverArt);

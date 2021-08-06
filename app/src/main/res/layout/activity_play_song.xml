@@ -341,8 +341,8 @@
         android:textAlignment="textStart"
         android:textColor="@color/white"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="@+id/albumLabel"
-        app:layout_constraintTop_toBottomOf="@+id/albumLabel" />
+        app:layout_constraintStart_toStartOf="@+id/genreLabel"
+        app:layout_constraintTop_toBottomOf="@+id/genreLabel" />
 
     <ImageView
         android:id="@+id/bottomBar"
