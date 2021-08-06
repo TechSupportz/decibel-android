@@ -26,6 +26,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import spencerstudios.com.bungeelib.Bungee;
+
 public class PlaylistRecycleViewAdapter extends RecyclerView.Adapter<PlaylistRecycleViewAdapter.MyViewHolder> {
 
     SongCollection songCollection = new SongCollection();
@@ -67,6 +69,7 @@ public class PlaylistRecycleViewAdapter extends RecyclerView.Adapter<PlaylistRec
                 Log.d("queue", "playlistSongIndex size: " + playlistSongIndex.size());
                 intent.putExtras(extras);
                 context.startActivity(intent);
+                Bungee.slideUp(context);
             }
         });
     }

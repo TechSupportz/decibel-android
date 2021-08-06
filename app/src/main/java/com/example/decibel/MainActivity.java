@@ -19,6 +19,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import spencerstudios.com.bungeelib.Bungee;
+
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         playlistCollection.addToLofiBeats();
         playlistCollection.addToPop();
 
+
         loadData();
     }
 
@@ -79,5 +82,6 @@ public class MainActivity extends AppCompatActivity {
     public void goLibrary(View view) {
         Intent intent = new Intent(this, LibraryActivity.class);
         this.startActivity(intent);
+        Bungee.slideRight(this);
     }
 }

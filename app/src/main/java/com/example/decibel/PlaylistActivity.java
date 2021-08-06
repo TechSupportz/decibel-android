@@ -27,6 +27,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import spencerstudios.com.bungeelib.Bungee;
+
 public class PlaylistActivity extends AppCompatActivity {
 
     private String id;
@@ -176,4 +178,11 @@ public class PlaylistActivity extends AppCompatActivity {
             PlaylistCollection.likedList = gson.fromJson(json, type);
         }
     }
+
+    public void goBack(View view) {
+        super.onBackPressed();
+        Bungee.zoom(this);
+    }
+
+
 }

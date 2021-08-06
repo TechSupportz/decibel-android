@@ -35,6 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import spencerstudios.com.bungeelib.Bungee;
+
 public class PlaySongActivity extends AppCompatActivity {
 
     private String id;
@@ -149,10 +151,6 @@ public class PlaySongActivity extends AppCompatActivity {
             player.reset();
             player.setDataSource(songUrl);
             player.prepare();
-            int duration = player.getDuration();
-            seekBar.setMax(duration);
-            String timerLabel = createTimeLabel(duration);
-            songDurationTxt.setText(timerLabel);
             player.start();
             handler.removeCallbacks(progressBar);
             handler.postDelayed(progressBar, 0); //activates runnable
@@ -428,7 +426,11 @@ public class PlaySongActivity extends AppCompatActivity {
             Log.d("temasek", "running" + count++);
             if (player != null && player.isPlaying()) {
                 int currentPos = player.getCurrentPosition();
+                int duration = player.getDuration();
+                seekBar.setMax(duration);
                 seekBar.setProgress(currentPos);
+                String timerLabel = createTimeLabel(duration);
+                songDurationTxt.setText(timerLabel);
                 songProgTxt.setText(createTimeLabel(currentPos));
                 handler.postDelayed(this, 1000); //calls runnable repeatedly every 1000ms (1s)
             }
@@ -444,6 +446,7 @@ public class PlaySongActivity extends AppCompatActivity {
         }
         Intent goHome = new Intent(this, MainActivity.class);
         this.startActivity(goHome);
+        Bungee.slideDown(this);
     }
 
     public void onBackPressed() {
@@ -453,6 +456,7 @@ public class PlaySongActivity extends AppCompatActivity {
             handler.removeCallbacks(progressBar);
         }
         super.onBackPressed();
+        Bungee.slideDown(this);
         loadData();
     }
 }

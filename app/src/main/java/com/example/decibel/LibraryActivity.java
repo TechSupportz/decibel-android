@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -15,6 +16,8 @@ import com.example.decibel.Adapters.LibraryRecycleViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import spencerstudios.com.bungeelib.Bungee;
 
 public class LibraryActivity extends AppCompatActivity {
 
@@ -74,8 +77,16 @@ public class LibraryActivity extends AppCompatActivity {
             if (searchedSong.getTitle().toLowerCase().contains(query.toLowerCase())) {
                 filteredSongList.add(searchedSong);
             }
-
+        }
         libraryAdapter.filterList(filteredSongList);
     }
 
-}}
+    public void goBack(View view) {
+        onBackPressed();
+    }
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        Bungee.slideLeft(this);
+    }
+}

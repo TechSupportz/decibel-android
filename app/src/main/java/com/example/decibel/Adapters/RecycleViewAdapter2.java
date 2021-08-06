@@ -25,6 +25,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import spencerstudios.com.bungeelib.Bungee;
+
 public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter2.MyViewHolder2> {
 
     SongCollection songCollection = new SongCollection();
@@ -64,7 +66,7 @@ public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter
                 extras.putString("listType", "preset");
                 intent.putExtras(extras);
                 context.startActivity(intent);
-
+                Bungee.zoom(context);
             }
         });
     }
