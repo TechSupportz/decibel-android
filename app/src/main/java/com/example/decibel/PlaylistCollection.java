@@ -13,39 +13,61 @@ public class PlaylistCollection {
 
     List<Playlist> presetPlaylist  = new ArrayList<>();
     List<Playlist> customPlaylist = new ArrayList<>();
+    List<Playlist> artistPlaylist = new ArrayList<>();
     static List<Song> likedList = new ArrayList<>();
+
     static List<Song> lofibeats = new ArrayList<>();
     static List<Song> popforDays = new ArrayList<>();
+    static List<Song> justFireRap = new ArrayList<>();
+
+    static List<Song> lilypichu = new ArrayList<>();
 
 
     public PlaylistCollection() {
 
         Playlist likedSongs = new Playlist(
-                "P2000",
+                "P1000",
                 "Liked Songs",
                 "You",
                 likedList,
                 R.drawable.liked_song);
 
 
-        presetPlaylist.add(likedSongs);
+        customPlaylist.add(likedSongs);
 
         Playlist lofiBeats = new Playlist(
-                "P2001",
+                "P2000",
                 "lofi beats",
                 "Decibel",
                 lofibeats,
                 R.drawable.lofibeats_cover);
 
         Playlist popForDays = new Playlist(
-                "P2002",
+                "P2001",
                 "Pop for days",
                 "Decibel",
                 popforDays,
-                R.drawable.home1);
+                R.drawable.pop_art);
+
+        Playlist fireRap = new Playlist(
+                "P2002",
+                "Just Fire Rap",
+                "Decibel",
+                justFireRap,
+                R.drawable.rap_cover);
 
         presetPlaylist.add(lofiBeats);
         presetPlaylist.add(popForDays);
+        presetPlaylist.add(fireRap);
+
+        Playlist lilyPichu = new Playlist(
+                "P3000",
+                "LilyPichu",
+                "Decibel",
+                lilypichu,
+                R.drawable.lilypichu_cover);
+
+        artistPlaylist.add(lilyPichu);
     }
 
     public Playlist getCurrentPlaylist(String listType, int currentPlaylistIndex){
@@ -54,6 +76,9 @@ public class PlaylistCollection {
         }
         else if (listType.equals("custom")){
             return customPlaylist.get(currentPlaylistIndex);
+        }
+        else if (listType.equals("artist")){
+            return artistPlaylist.get(currentPlaylistIndex);
         }
         return null;
     }
@@ -103,6 +128,28 @@ public class PlaylistCollection {
                 if ((songList.get(i).getGenre() == "pop")) {
                     popforDays.add(songList.get(i));
                     Log.d("pop", "pop contains " + songList.get(i));
+                }
+            }
+        }
+    }
+
+    public void addToRap(){
+        if (justFireRap.size()==0) {
+            for (int i = 0; i < songList.size(); i++) {
+                if ((songList.get(i).getGenre() == "rap")) {
+                    justFireRap.add(songList.get(i));
+                    Log.d("rap", "rap contains " + songList.get(i));
+                }
+            }
+        }
+    }
+
+    public void addToLilyPichu(){
+        if (lilypichu.size()==0) {
+            for (int i = 0; i < songList.size(); i++) {
+                if ((songList.get(i).getArtist() == "LilyPichu")) {
+                    lilypichu.add(songList.get(i));
+                    Log.d("artist", "lily contains " + songList.get(i));
                 }
             }
         }

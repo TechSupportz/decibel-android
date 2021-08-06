@@ -84,8 +84,8 @@ public class PlaylistActivity extends AppCompatActivity {
 
         loadData();
         displayPlaylistBasedOnIndex();
-        backgroundTint();
         createSongIndexList();
+        backgroundTint();
     }
 
     public void displayPlaylistBasedOnIndex(){
@@ -180,9 +180,12 @@ public class PlaylistActivity extends AppCompatActivity {
     }
 
     public void goBack(View view) {
-        super.onBackPressed();
-        Bungee.zoom(this);
+        onBackPressed();
     }
 
+    public void onBackPressed() {
+        super.onBackPressed();
+        Bungee.slideRight(this);
+    }
 
 }

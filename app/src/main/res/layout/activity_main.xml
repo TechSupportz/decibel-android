@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/montserratbold"
-                android:text="Best of ______:"
+                android:text="Artists Highlights:"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/artistList"
@@ -160,6 +160,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/library_icon"
         android:onClick="goLibrary"
+        tools:ignore="OnClick" />
+
+    <ImageView
+        android:id="@+id/LikedPageBtn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="25dp"
+        android:onClick="goLiked"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/liked_page_icon"
         tools:ignore="OnClick" />
 
 

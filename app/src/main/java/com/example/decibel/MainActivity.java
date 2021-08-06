@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.example.decibel.Adapters.RecycleViewAdapter;
 import com.example.decibel.Adapters.RecycleViewAdapter2;
+import com.example.decibel.Adapters.RecycleViewAdapter3;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private  RecyclerView recyclerView2;
     private RecyclerView.Adapter mAdapter2;
     private RecyclerView.LayoutManager layoutManager2;
+    private  RecyclerView recyclerView3;
+    private RecyclerView.Adapter mAdapter3;
+    private RecyclerView.LayoutManager layoutManager3;
     private ImageView background;
 
     SongCollection songCollection = new SongCollection();
@@ -62,10 +66,19 @@ public class MainActivity extends AppCompatActivity {
         mAdapter2 = new RecycleViewAdapter2(playlistCollection.presetPlaylist, this);
         recyclerView2.setAdapter(mAdapter2);
 
+        recyclerView3 = findViewById(R.id.artistList);
+        recyclerView3.setHasFixedSize(true);
+
+        layoutManager3 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView3.setLayoutManager(layoutManager3);
+
+        mAdapter3 = new RecycleViewAdapter3(playlistCollection.artistPlaylist, this);
+        recyclerView3.setAdapter(mAdapter3);
+
         playlistCollection.addToLofiBeats();
         playlistCollection.addToPop();
-
-
+        playlistCollection.addToRap();
+        playlistCollection.addToLilyPichu();
         loadData();
     }
 
@@ -83,5 +96,15 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LibraryActivity.class);
         this.startActivity(intent);
         Bungee.slideRight(this);
+    }
+
+    public void goLiked(View view) {
+        Intent intent = new Intent(this, PlaylistActivity.class);
+        Bundle extras = new Bundle();
+        extras.putInt("index", 0);
+        extras.putString("listType", "custom");
+        intent.putExtras(extras);
+        this.startActivity(intent);
+        Bungee.slideLeft(this);
     }
 }

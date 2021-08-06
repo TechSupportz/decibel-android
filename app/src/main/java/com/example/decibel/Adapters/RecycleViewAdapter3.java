@@ -27,15 +27,15 @@ import java.util.List;
 
 import spencerstudios.com.bungeelib.Bungee;
 
-public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter2.MyViewHolder2> {
+public class RecycleViewAdapter3 extends RecyclerView.Adapter<RecycleViewAdapter3.MyViewHolder2> {
 
     SongCollection songCollection = new SongCollection();
     PlaylistCollection playlistCollection = new PlaylistCollection();
-    List<Playlist> presetPlaylist;
+    List<Playlist> artistPlaylist;
     Context context;
 
-    public RecycleViewAdapter2(List<Playlist> presetPlaylist, Context context) {
-        this.presetPlaylist = presetPlaylist;
+    public RecycleViewAdapter3(List<Playlist> artistPlaylist, Context context) {
+        this.artistPlaylist = artistPlaylist;
         this.context = context;
     }
 
@@ -49,12 +49,12 @@ public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull RecycleViewAdapter2.MyViewHolder2 holder, int position) {
-        holder.playlistName.setText(presetPlaylist.get(position).getName());
-        holder.artistName.setText(presetPlaylist.get(position).getCreator());
-        Picasso.get().load(presetPlaylist.get(position).getCoverArt()).into(holder.coverArt);
+    public void onBindViewHolder(@NonNull @NotNull RecycleViewAdapter3.MyViewHolder2 holder, int position) {
+        holder.playlistName.setText(artistPlaylist.get(position).getName());
+        holder.artistName.setText(artistPlaylist.get(position).getCreator());
+        Picasso.get().load(artistPlaylist.get(position).getCoverArt()).into(holder.coverArt);
 
-        String id = presetPlaylist.get(position).getId();
+        String id = artistPlaylist.get(position).getId();
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +63,7 @@ public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter
                 Intent intent = new Intent(context, PlaylistActivity.class);
                 Bundle extras = new Bundle();
                 extras.putInt("index", position);
-                extras.putString("listType", "preset");
+                extras.putString("listType", "artist");
                 intent.putExtras(extras);
                 context.startActivity(intent);
                 Bungee.slideLeft(context);
@@ -73,7 +73,7 @@ public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter
 
     @Override
     public int getItemCount() {
-        return presetPlaylist.size();
+        return artistPlaylist.size();
     }
 
     public class MyViewHolder2 extends RecyclerView.ViewHolder {
