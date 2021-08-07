@@ -75,10 +75,7 @@ public class MainActivity extends AppCompatActivity {
         mAdapter3 = new RecycleViewAdapter3(playlistCollection.artistPlaylist, this);
         recyclerView3.setAdapter(mAdapter3);
 
-        playlistCollection.addToLofiBeats();
-        playlistCollection.addToPop();
-        playlistCollection.addToRap();
-        playlistCollection.addToLilyPichu();
+        playlistCollection.collatePlaylists();
         loadData();
     }
 

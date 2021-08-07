@@ -211,6 +211,119 @@ public class SongCollection {
                 "https://cdn.discordapp.com/attachments/854735014770901055/867619023352758302/yt1s.com_-_C4C_TLion_Jasmine_Audio.mp3",
                 "https://i.scdn.co/image/ab67616d0000b2732173d156062395f44e048aef");
 
+        Song rapGod = new Song(
+                "S1023",
+                "Rap God",
+                "Eminem",
+                "rap",
+                "https://cdn.discordapp.com/attachments/854735014770901055/873592925467074630/y2mate.com_-_Eminem_Rap_God_Lyrics_HD.mp3",
+                "https://i.scdn.co/image/ab67616d0000b273cb66bcc14c6f857c127d5969");
+
+        Song vaccine = new Song(
+                "S1024",
+                "Vaccine",
+                "Logic",
+                "rap",
+                "https://cdn.discordapp.com/attachments/854735014770901055/873595105829863424/Logic_-_Vaccine.mp3",
+               "https://i.scdn.co/image/ab67616d0000b273a30d0f11d12398aaf0afdd61");
+
+        Song heardEmSay = new Song(
+                "S1025",
+                "Heard 'Em Say",
+                "Logic",
+                "rap",
+                "https://cdn.discordapp.com/attachments/854735014770901055/873595928894930994/Logic_-_Heard_Em_Say_Official_Audio.mp3",
+                "https://i.scdn.co/image/ab67616d0000b2731c76e29153f29cc1e1b2b434");
+
+        Song astronautInTheOcean = new Song(
+                "S1026",
+                "Astronaut In The Ocean",
+                "Masked Wolf",
+                "rap",
+                "https://cdn.discordapp.com/attachments/854735014770901055/873596608695140403/Masked_Wolf_-_Astronaut_in_the_Ocean.mp3",
+                "https://i.scdn.co/image/ab67616d0000b27384350b406522fc53c1b2a621");
+
+        Song backwards = new Song(
+                "S1027",
+                "Backwards",
+                "Alexander Stewart",
+                "pop",
+                "https://cdn.discordapp.com/attachments/854735014770901055/873597855426818068/Alexander_Stewart_-_Backwards_LyricsLyric_Video.mp3",
+                "https://i.scdn.co/image/ab67616d0000b27339b75e94a1f716908a4dd5a2");
+
+        Song rememberThatName = new Song(
+                "S1028",
+                "Remember The Name (feat. Eminem & 50 Cent)",
+                "Ed Sheeran",
+                "rap",
+                "https://cdn.discordapp.com/attachments/854735014770901055/873599287433527336/Ed_Sheeran_-_Remember_The_Name_feat._Eminem__50_Cent_Official_Lyric_Video.mp3",
+                "https://i.scdn.co/image/ab67616d0000b27373304ce0653c7758dd94b259");
+
+        Song congratulations = new Song(
+                "S1029",
+                "Congratulations",
+                "Post Malone",
+                "rap",
+                "https://cdn.discordapp.com/attachments/854735014770901055/873601136593080351/Post_Malone_-_congratulations_Lyrics_ft._Quavo.mp3",
+                "https://i.scdn.co/image/ab67616d0000b273894a761abf954838a84c8db9");
+
+
+
+        Song takeMeBackToLondon = new Song(
+                "S1030",
+                "Take Me Back to London (feat. Stormzy)",
+                "Ed Sheeran",
+                "rap",
+                "https://cdn.discordapp.com/attachments/854735014770901055/873600221215592468/Ed_Sheeran_-_Take_Me_Back_To_London_feat._Stormzy_Official_Lyric_Video.mp3",
+                "https://i.scdn.co/image/ab67616d0000b27373304ce0653c7758dd94b259");
+
+        Song theRoadAhead = new Song(
+                "S1031",
+                "The Road Ahead",
+                "NDPeeps",
+                "ndp",
+                "https://cdn.discordapp.com/attachments/854735014770901055/873605215222374430/NDP_2021_Theme_Song_-_The_Road_Ahead_Official_Music_Video.mp3",
+                "https://i.scdn.co/image/ab67616d0000b273d9afc3ca5f3f926140e892cf");
+
+        Song home = new Song(
+                "S1032",
+                "Home",
+                "Kit Chan",
+                "ndp",
+                "https://cdn.discordapp.com/attachments/854735014770901055/873606684038287360/Singapore_National_Day_Video_-_Home_-_Kit_Chan.mp3",
+                "https://i.scdn.co/image/ab67616d0000b273a3441fe0b8a408c254411e80");
+
+        Song inAHeartbeat = new Song(
+                "S1033",
+                "In A Heartbeat",
+                "Kit Chan",
+                "ndp",
+                "https://cdn.discordapp.com/attachments/854735014770901055/873607194552197150/NDP_2011_Theme_Song_-_In_A_Heartbeat.mp3",
+                "https://i.scdn.co/image/ab67616d0000b273a3441fe0b8a408c254411e80");
+
+        Song keanuReeves = new Song(
+                "S1034",
+                "Keanu Reeves",
+                "Logic",
+                "rap",
+                "https://cdn.discordapp.com/attachments/854735014770901055/873610073203671040/Logic_-_Keanu_Reeves_Official_Audio.mp3",
+                "https://i.scdn.co/image/ab67616d0000b2738c04b41739d88c1c27c4a669");
+
+        Song shapeOfYou = new Song(
+                "S1035",
+                "Shape Of You",
+                "Ed Sheeran",
+                "pop",
+                "https://cdn.discordapp.com/attachments/854735014770901055/873611136078061638/y2mate.com_-_Ed_Sheeran_Shape_Of_You_Official_Lyric_Video.mp3",
+                "https://i.scdn.co/image/ab67616d0000b273ba5db46f4b838ef6027e6f96");
+
+        Song photograph = new Song(
+                "S1036",
+                "Photograph",
+                "Ed Sheeran",
+                "pop",
+                "https://cdn.discordapp.com/attachments/854735014770901055/873613259863896144/Photograph.mp3",
+                "https://i.scdn.co/image/ab67616d0000b27313b3e37318a0c247b550bccd");
 
 
         songList.add(ifICantHaveYou);
@@ -237,6 +350,20 @@ public class SongCollection {
         songList.add(betterDays);
         songList.add(tigerPark);
         songList.add(jasmine);
+        songList.add(rapGod);
+        songList.add(vaccine);
+        songList.add(heardEmSay);
+        songList.add(astronautInTheOcean);
+        songList.add(backwards);
+        songList.add(rememberThatName);
+        songList.add(congratulations);
+        songList.add(takeMeBackToLondon);
+        songList.add(theRoadAhead);
+        songList.add(home);
+        songList.add(inAHeartbeat);
+        songList.add(keanuReeves);
+        songList.add(shapeOfYou);
+        songList.add(photograph);
 
         for (int index = 0; index < songList.size(); index++) {
             indexList.add(index);
