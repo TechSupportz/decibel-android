@@ -28,7 +28,7 @@ import java.util.List;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter2.MyViewHolder2> {
-
+    //declare variables
     SongCollection songCollection = new SongCollection();
     PlaylistCollection playlistCollection = new PlaylistCollection();
     List<Playlist> presetPlaylist;
@@ -43,39 +43,45 @@ public class RecycleViewAdapter2 extends RecyclerView.Adapter<RecycleViewAdapter
     @NotNull
     @Override
     public MyViewHolder2 onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-
+        //inflates layout of specified layout file
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.one_song,parent,false);
         return new MyViewHolder2(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecycleViewAdapter2.MyViewHolder2 holder, int position) {
+        //sets song title, artist name and cover art
         holder.playlistName.setText(presetPlaylist.get(position).getName());
         holder.artistName.setText(presetPlaylist.get(position).getCreator());
         Picasso.get().load(presetPlaylist.get(position).getCoverArt()).into(holder.coverArt);
-
-        String id = presetPlaylist.get(position).getId();
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("temasek", "onClick: The song clicked was " + position);
+                //creates calls an intent to navigate to the liked page
                 Intent intent = new Intent(context, PlaylistActivity.class);
+                //adds the information PlaylistActivity would have to retrieve to display the liked playlist into a bundle
                 Bundle extras = new Bundle();
                 extras.putInt("index", position);
                 extras.putString("listType", "preset");
+                //adds the bundle into the extras to be sent over to PlaylistActivity
                 intent.putExtras(extras);
+                //calls the intent to navigate to the PlaylistActivity page
                 context.startActivity(intent);
+                //transition animation
                 Bungee.slideLeft(context);
             }
         });
     }
 
     @Override
+    //gets number of items in list
     public int getItemCount() {
         return presetPlaylist.size();
     }
 
+    //declares and assigns variables of
     public class MyViewHolder2 extends RecyclerView.ViewHolder {
         ImageView coverArt;
         TextView playlistName;

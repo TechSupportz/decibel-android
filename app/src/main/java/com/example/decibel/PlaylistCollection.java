@@ -8,6 +8,7 @@ import java.util.List;
 
 public class PlaylistCollection {
 
+    //creation of playlists
     SongCollection songCollection = new SongCollection();
     List<Song> songList = songCollection.songList;
 
@@ -27,6 +28,7 @@ public class PlaylistCollection {
     static List<Song> edSheeran = new ArrayList<>();
 
     public PlaylistCollection() {
+        //creating Playlists
 
         Playlist likedSongs = new Playlist(
                 "P1000",
@@ -35,6 +37,7 @@ public class PlaylistCollection {
                 likedList,
                 R.drawable.liked_song);
 
+        //adding playlists to list
         customPlaylist.add(likedSongs);
 
         Playlist lofiBeats = new Playlist(
@@ -65,6 +68,7 @@ public class PlaylistCollection {
                 ndpSongs,
                 R.drawable.ndp_cover);
 
+        //adding playlists to list
         presetPlaylist.add(lofiBeats);
         presetPlaylist.add(popForDays);
         presetPlaylist.add(fireRap);
@@ -98,12 +102,14 @@ public class PlaylistCollection {
                 edSheeran,
                 R.drawable.edsheeran_profile);
 
+        //adding playlists to list
         artistPlaylist.add(lilyPichu);
         artistPlaylist.add(billieEilish);
         artistPlaylist.add(logic);
         artistPlaylist.add(edsheeran);
     }
 
+    //returns playlist based on its type and index
     public Playlist getCurrentPlaylist(String listType, int currentPlaylistIndex){
         if (listType.equals("preset")){
             return presetPlaylist.get(currentPlaylistIndex);
@@ -117,14 +123,7 @@ public class PlaylistCollection {
         return null;
     }
 
-    public void addToLikedList(String id){
-        Song tempSong = songCollection.findSongById(id);
-        likedList.add(tempSong);
-        for (int i = 0; i < likedList.size(); i++){
-            Log.d("Liked", "Liked list contains" + (likedList.get(i)).getId());
-        }
-    }
-
+    //checks if song is present in likedList
     public boolean isPresent(String id) {
         Song tempSong = songCollection.findSongById(id);
         for (int i = 0; i < likedList.size(); i++){
@@ -135,6 +134,16 @@ public class PlaylistCollection {
         return false;
     }
 
+    //adds song to liked list
+    public void addToLikedList(String id){
+        Song tempSong = songCollection.findSongById(id);
+        likedList.add(tempSong);
+        for (int i = 0; i < likedList.size(); i++){
+            Log.d("Liked", "Liked list contains" + (likedList.get(i)).getId());
+        }
+    }
+
+    //removes song from liked list
     public void removeFrmLikedList(String id){
         Song tempSong = songCollection.findSongById(id);
         for (int i = 0; i < likedList.size(); i++){
@@ -145,6 +154,7 @@ public class PlaylistCollection {
         }
     }
 
+    //singular method to be run all addTo methods
     public void collatePlaylists(){
         addToLofiBeats();
         addToPop();
@@ -157,7 +167,7 @@ public class PlaylistCollection {
         addToEdSheeran();
     }
 
-
+    //generates lofi playlist
     private void addToLofiBeats(){
         if (lofibeats.size()==0) {
             for (int i = 0; i < songList.size(); i++) {
@@ -169,6 +179,7 @@ public class PlaylistCollection {
         }
     }
 
+    //generates pop playlist
     private void addToPop(){
         if (popforDays.size()==0) {
             for (int i = 0; i < songList.size(); i++) {
@@ -180,6 +191,7 @@ public class PlaylistCollection {
         }
     }
 
+    //generates rap playlist
     private void addToRap(){
         if (justFireRap.size()==0) {
             for (int i = 0; i < songList.size(); i++) {
@@ -191,6 +203,7 @@ public class PlaylistCollection {
         }
     }
 
+    //generates ndp playlist
     private void addToNdp(){
         if (ndpSongs.size()==0) {
             for (int i = 0; i < songList.size(); i++) {
@@ -202,6 +215,7 @@ public class PlaylistCollection {
         }
     }
 
+    //generates lilypichu playlist
     private void addToLilyPichu(){
         if (lilypichu.size()==0) {
             for (int i = 0; i < songList.size(); i++) {
@@ -213,6 +227,7 @@ public class PlaylistCollection {
         }
     }
 
+    //generates billie eilish playlist
     private void addToBillie(){
         if (billieeilish.size()==0) {
             for (int i = 0; i < songList.size(); i++) {
@@ -224,6 +239,7 @@ public class PlaylistCollection {
         }
     }
 
+    //generates logic playlist
     private void addToLogic(){
         if (logic301.size()==0) {
             for (int i = 0; i < songList.size(); i++) {
@@ -235,6 +251,7 @@ public class PlaylistCollection {
         }
     }
 
+    //generates ed sheeran playlist
     private void addToEdSheeran(){
         if (edSheeran.size()==0) {
             for (int i = 0; i < songList.size(); i++) {

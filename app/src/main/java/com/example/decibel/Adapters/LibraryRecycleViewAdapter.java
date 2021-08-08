@@ -29,7 +29,7 @@ import java.util.List;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class LibraryRecycleViewAdapter extends RecyclerView.Adapter<LibraryRecycleViewAdapter.MyViewHolder>{
-
+    //declare variables
     SongCollection songCollection = new SongCollection();
     List<Song> songList;
     Context context;
@@ -43,13 +43,14 @@ public class LibraryRecycleViewAdapter extends RecyclerView.Adapter<LibraryRecyc
     @NotNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-
+        //inflates layout of specified layout file
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.song_list,parent,false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull LibraryRecycleViewAdapter.MyViewHolder holder, int position) {
+        //sets song title, artist name and cover art
         holder.songName.setText(songList.get(position).getTitle());
         holder.artistName.setText(songList.get(position).getArtist());
         Picasso.get().load(songList.get(position).getCoverArt()).into(holder.coverArt);
@@ -58,23 +59,31 @@ public class LibraryRecycleViewAdapter extends RecyclerView.Adapter<LibraryRecyc
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //gets index of song
                 int index = songCollection.searchSongById(id);
+                //creates calls an intent to navigate to the PlaySongActivity page
                 Intent intent = new Intent(context, PlaySongActivity.class);
+                //adds the information PlaySongActivity would have to retrieve to display the liked playlist into a bundle
                 Bundle extras = new Bundle();
                 extras.putInt("index", index);
                 extras.putIntegerArrayList("songIndexList", songCollection.getIndexList());
+                //adds the bundle into the extras to be sent over to PlaySongActivity
                 intent.putExtras(extras);
+                //calls the intent to navigate to the PlaySongActivity page
                 context.startActivity(intent);
+                //transition animation
                 Bungee.slideUp(context);
             }
         });
     }
 
     @Override
+    //gets number of items in list
     public int getItemCount() {
         return songList.size();
     }
 
+    //declares and assigns variables of
     public void filterList(ArrayList<Song> filteredSongList){
         songList = filteredSongList;
         notifyDataSetChanged();

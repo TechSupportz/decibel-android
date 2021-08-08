@@ -11,12 +11,15 @@ import java.util.WeakHashMap;
 
 public class SongCollection {
 
+    //creating lists
     ArrayList<Integer> indexList = new ArrayList<>();
     List<Song> songList = new ArrayList<>();
     List<Song> songListCopy = new ArrayList<>();
     List<Song> forYou = new ArrayList<>();
 
     public SongCollection() {
+        //creating Songs
+
         Song ifICantHaveYou = new Song(
                 "S1000",
                 "If I Can't Have You",
@@ -325,7 +328,7 @@ public class SongCollection {
                 "https://cdn.discordapp.com/attachments/854735014770901055/873613259863896144/Photograph.mp3",
                 "https://i.scdn.co/image/ab67616d0000b27313b3e37318a0c247b550bccd");
 
-
+        //adding songs to songList
         songList.add(ifICantHaveYou);
         songList.add(billieJean);
         songList.add(dreamyNight);
@@ -365,15 +368,18 @@ public class SongCollection {
         songList.add(shapeOfYou);
         songList.add(photograph);
 
+        //creates indexList and copy of songList
         for (int index = 0; index < songList.size(); index++) {
             indexList.add(index);
             songListCopy.add(songList.get(index));
         }
 
+        //generates ForYouList
         generateForYou();
 
     }
 
+    //searches for the song with the id given and returns the song itself
     public Song findSongById(String id){
         for (int i = 0; i < songList.size(); i++){
             Song tempSong = songList.get(i);
@@ -384,6 +390,7 @@ public class SongCollection {
         return null;
     }
 
+    //searches for the song with the id given and returns the song's index
     public int searchSongById(String id) {
         for (int index = 0; index < songList.size(); index++) {
             Song tempSong = songList.get(index);
@@ -394,6 +401,7 @@ public class SongCollection {
         return -1;
     }
 
+    //generates forYou songList
     private void generateForYou(){
         Collections.shuffle(songListCopy);
         for (int i = 0; i < 5; i++){
@@ -401,18 +409,16 @@ public class SongCollection {
         }
     }
 
+    //getter methods
     public List<Song> getSongList() {
         return songList;
     }
-
     public Song getCurrentSong(int currentSongIndex){
         return songList.get(currentSongIndex);
     }
-
     public ArrayList<Integer> getIndexList(){
         return indexList;
     }
-
     public List<Song> getForYouList() {
         return forYou;
     }

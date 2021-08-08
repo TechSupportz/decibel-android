@@ -2,6 +2,7 @@ package com.example.decibel;
 
 public class Song {
 
+    //declare variable
     private String id;
     private String title;
     private String artist;
@@ -11,7 +12,7 @@ public class Song {
 
 
     public Song(String id, String title, String artist, String genre, String songLink, String coverArt){
-
+        //assign variables to respective values
         this.id = id;
         this.title = title;
         this.artist = artist;
@@ -20,6 +21,7 @@ public class Song {
         this.coverArt = coverArt;
     }
 
+    //setter methods
     public void setId(String id){this.id=id;}
     public void setTitle(String title){this.title=title;}
     public void setArtist(String artist){this.artist=artist;}
@@ -29,7 +31,7 @@ public class Song {
     public void setFindLink(String songLink){this.songLink = songLink;}
     public void setCoverImage(String coverImage){this.coverArt=coverImage;}
 
-
+    //getter methods
     public String getId() {
         return id;
     }

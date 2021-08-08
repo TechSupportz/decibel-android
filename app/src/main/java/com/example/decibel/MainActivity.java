@@ -23,6 +23,7 @@ import java.util.List;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class MainActivity extends AppCompatActivity {
+    //variable declaration
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -46,41 +47,56 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         background = findViewById(R.id.backgroundImage);
+        //setting colour of the background gradient/glow
         background.setBackgroundColor(Color.parseColor("#45A7FB"));
 
         recyclerView = findViewById(R.id.forYouSongList);
+        //setting recyclerView to have fixed size as the size of contents inside it doesnt change
         recyclerView.setHasFixedSize(true);
 
+        //sets recyclerView to be horizontal
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
+        //provides the list that the recycler view will display
         mAdapter = new RecycleViewAdapter(forYou, this);
         recyclerView.setAdapter(mAdapter);
 
+
         recyclerView2 = findViewById(R.id.playlistList);
+        //setting recyclerView to have fixed size as the size of contents inside it doesnt change
         recyclerView2.setHasFixedSize(true);
 
+        //sets recyclerView to be horizontal
         layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView2.setLayoutManager(layoutManager2);
 
+        //provides the list that the recycler view will display
         mAdapter2 = new RecycleViewAdapter2(playlistCollection.presetPlaylist, this);
         recyclerView2.setAdapter(mAdapter2);
 
+        //setting recyclerView to have fixed size as the size of contents inside it doesnt change
         recyclerView3 = findViewById(R.id.artistList);
         recyclerView3.setHasFixedSize(true);
 
+        //sets recyclerView to be horizontal
         layoutManager3 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView3.setLayoutManager(layoutManager3);
 
+        //provides the list that the recycler view will display
         mAdapter3 = new RecycleViewAdapter3(playlistCollection.artistPlaylist, this);
         recyclerView3.setAdapter(mAdapter3);
 
+        //fills in the preset playlists with their respective songs
         playlistCollection.collatePlaylists();
+        //loads the liked song shared preferences
         loadData();
     }
 
     public void loadData(){
+        //gets the shared pref file from device storage
         SharedPreferences sharedPreferences = getSharedPreferences("shared pref", MODE_PRIVATE);
+        //retrieves the list from the shared pref
         Gson gson = new Gson();
         String json = sharedPreferences.getString("playlist", "");
         if (!json.equals("")) {
@@ -90,18 +106,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goLibrary(View view) {
+        //creates intent to navigate to the library page
         Intent intent = new Intent(this, LibraryActivity.class);
+        //calls the intent to navigate to the library page
         this.startActivity(intent);
+        //transition animation
         Bungee.slideRight(this);
     }
 
     public void goLiked(View view) {
+        //creates calls an intent to navigate to the liked page
         Intent intent = new Intent(this, PlaylistActivity.class);
+        //adds the information PlaylistActivity would have to retrieve to display the liked playlist into a bundle
         Bundle extras = new Bundle();
         extras.putInt("index", 0);
         extras.putString("listType", "custom");
+        //adds the bundle into the extras to be sent over to PlaylistActivity
         intent.putExtras(extras);
+        //calls the intent to navigate to the PlaylistActivity page
         this.startActivity(intent);
+        //transition animation
         Bungee.slideLeft(this);
     }
 }

@@ -20,7 +20,7 @@ import java.util.List;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class LibraryActivity extends AppCompatActivity {
-
+    //variable declarations
     private RecyclerView libraryRecyclerView;
     private LibraryRecycleViewAdapter libraryAdapter;
     private RecyclerView.LayoutManager libraryLayoutManager;
@@ -37,18 +37,24 @@ public class LibraryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_library);
 
         background = findViewById(R.id.backgroundImage);
+        //setting colour of the background gradient/glow
         background.setBackgroundColor(Color.parseColor("#45A7FB"));
 
         libraryRecyclerView = findViewById(R.id.forYouSongList);
+        //setting recyclerView to have fixed size as the size of contents inside it doesnt change
         libraryRecyclerView.setHasFixedSize(true);
 
+        //sets recyclerView to be horizontal
         libraryLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         libraryRecyclerView.setLayoutManager(libraryLayoutManager);
 
+        //provides the list that the recycler view will display
         libraryAdapter = new LibraryRecycleViewAdapter(songList, this);
         libraryRecyclerView.setAdapter(libraryAdapter);
 
+        //variable assigning
         searchBar = findViewById(R.id.searchBar);
+        //watches for changes in search bar
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -61,6 +67,7 @@ public class LibraryActivity extends AppCompatActivity {
             }
 
             @Override
+            //calls a method after every chnage
             public void afterTextChanged(Editable s) {
                 filter(s.toString());
             }
@@ -81,10 +88,12 @@ public class LibraryActivity extends AppCompatActivity {
         libraryAdapter.filterList(filteredSongList);
     }
 
+    //brings user back when back in bottom bar is pressed
     public void goBack(View view) {
         onBackPressed();
     }
 
+    //brings user back when back is pressed
     public void onBackPressed() {
         super.onBackPressed();
         Bungee.slideLeft(this);
