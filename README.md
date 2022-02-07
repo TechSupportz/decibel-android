@@ -1,3 +1,11 @@
-A music streaming app called Decibel made for Sem 1.1 in Temasek Polytechnic.
+# Decibel
 
-Built using Android Studio and Java
+A Music Streaming App built for Sem 1.1 in Polytechnic
+
+## Built using:
+
+### Language
+* Java
+
+### Software
+* Android Studio
